@@ -148,9 +148,13 @@
                   <div class="card min-height-notification">
                     {{!-- <div class="card-header"> </div> --}}
                     <div class="card-body">
-                      <div class="card-title text-success">Aviso</div>
+                      <div class="card-title text-success">Aviso {{this._id}}
+                        <div class="float-right"><button onclick="editNotification()"
+                            class="btn btn-outline-warning btn-sm button-edit">Editar</button></div>
+                      </div>
                       <hr>
                       <form action="/add/notification" method="POST">
+                        <div class="id hidden"></div>
                         <div class="form-group">
                           <label for="input-1" class="text-success">Edificio</label>
                           <div class="building"></div>
@@ -166,7 +170,35 @@
                         <div class="form-group">
                           <label for="input-1" class="text-success">Mensaje</label>
                           <div class="message"></div>
-                          {{!-- <textarea class="form-control textarea-avisos" rows="4" name="message"></textarea> --}}
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-5 edit-form hidden">
+                  <div class="card min-height-notification">
+                    {{!-- <div class="card-header"> </div> --}}
+                    <div class="card-body">
+                      <div class="card-title text-success">Avisos
+
+                      </div>
+                      <hr>
+                      <form action="/edit/notification/id" method="POST">
+                        <div class="form-group">
+                          <label>Edificio</label>
+                          <div class="building"></div>
+                        </div>
+                        <div class="form-group">
+                          <label for="input-1">Asunto</label>
+                          <input type="text" class="form-control" id="input-1" name="subject">
+                        </div>
+                        <div class="form-group">
+                          <label for="input-1">Mensaje</label>
+                          <textarea class="form-control textarea-avisos" rows="4" name="message"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <button class="btn btn-outline-success btn-sm btn-block ">enviar aviso</button>
                         </div>
                       </form>
                     </div>
@@ -191,7 +223,8 @@
                         </div>
                         <div class="form-group">
                           <label for="input-1">Asunto</label>
-                          <input type="text" class="form-control" id="input-1" name="subject" placeholder="Ingrese el asunto" required>
+                          <input type="text" class="form-control" id="input-1" name="subject"
+                            placeholder="Ingrese el asunto" required>
                         </div>
                         <div class="form-group">
                           <label for="input-1">Mensaje</label>
@@ -213,79 +246,98 @@
       </div>
       <!-- End container-fluid-->
 
-        <div class="overlay"></div>
-
-      </div>
-      <!--End content-wrapper-->
-      <!--Start Back To Top Button-->
-      <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-      <!--End Back To Top Button-->
-
-      <!--Start footer-->
-      {{> footer}}
-      <!--End footer-->
+      <div class="overlay"></div>
 
     </div>
-    <!--End wrapper-->
+    <!--End content-wrapper-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+
+    <!--Start footer-->
+    {{> footer}}
+    <!--End footer-->
+
+  </div>
+  <!--End wrapper-->
 
 
-    <script src="/javascripts/template/jquery.min.js"></script>
-    <script src="/javascripts/template/popper.min.js"></script>
-    <script src="/javascripts/template/bootstrap.min.js"></script>
-    <script src="/javascripts/template/simplebar/js/simplebar.js"></script>
-    <script src="/javascripts/template/waves.js"></script>
-    <script src="/javascripts/template/sidebar-menu.js"></script>
-    <script src="/javascripts/template/app-script.js"></script>
-    <script src="/javascripts/script.js"></script>
+  <script src="/javascripts/template/jquery.min.js"></script>
+  <script src="/javascripts/template/popper.min.js"></script>
+  <script src="/javascripts/template/bootstrap.min.js"></script>
+  <script src="/javascripts/template/simplebar/js/simplebar.js"></script>
+  <script src="/javascripts/template/waves.js"></script>
+  <script src="/javascripts/template/sidebar-menu.js"></script>
+  <script src="/javascripts/template/app-script.js"></script>
+  <script src="/javascripts/script.js"></script>
 
-    <!--Data Tables js-->
-    <script src="/javascripts/template/data-table/jquery.dataTables.min.js"></script>
-    <script src="/javascripts/template/data-table/dataTables.bootstrap4.min.js"></script>
-    <script src="/javascripts/template/data-table/dataTables.buttons.min.js"></script>
-    <script src="/javascripts/template/data-table/buttons.bootstrap4.min.js"></script>
-    <script src="/javascripts/template/data-table/jszip.min.js"></script>
-    <script src="/javascripts/template/data-table/pdfmake.min.js"></script>
-    <script src="/javascripts/template/data-table/vfs_fonts.js"></script>
-    <script src="/javascripts/template/data-table/buttons.html5.min.js"></script>
-    <script src="/javascripts/template/data-table/buttons.print.min.js"></script>
-    <script src="/javascripts/template/data-table/buttons.colVis.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        //Default data table
-        $('#default-datatable').DataTable();
+  <!--Data Tables js-->
+  <script src="/javascripts/template/data-table/jquery.dataTables.min.js"></script>
+  <script src="/javascripts/template/data-table/dataTables.bootstrap4.min.js"></script>
+  <script src="/javascripts/template/data-table/dataTables.buttons.min.js"></script>
+  <script src="/javascripts/template/data-table/buttons.bootstrap4.min.js"></script>
+  <script src="/javascripts/template/data-table/jszip.min.js"></script>
+  <script src="/javascripts/template/data-table/pdfmake.min.js"></script>
+  <script src="/javascripts/template/data-table/vfs_fonts.js"></script>
+  <script src="/javascripts/template/data-table/buttons.html5.min.js"></script>
+  <script src="/javascripts/template/data-table/buttons.print.min.js"></script>
+  <script src="/javascripts/template/data-table/buttons.colVis.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      //Default data table
+      $('#default-datatable').DataTable();
 
 
-        var table = $('#example').DataTable({
-          lengthChange: false,
-          buttons: ['copy', 'excel', 'pdf', 'print', 'colvis']
-        });
-
-        table.buttons().container()
-          .appendTo('#example_wrapper .col-md-6:eq(0)');
-
+      var table = $('#example').DataTable({
+        lengthChange: false,
+        buttons: ['copy', 'excel', 'pdf', 'print', 'colvis']
       });
 
-      function loadNotificationAndShowForm(id) {
-        document.querySelector(".notification-form").style.display = "block"
-        document.querySelector(".aviso-form").style.display = "none"
-        loadNotification(id, function (notificationData) {
-          document.querySelector(".notification-form .building").innerHTML = notificationData.building.address
-          document.querySelector(".notification-form .subject").innerHTML = notificationData.subject
-          document.querySelector(".notification-form .date").innerHTML = notificationData.created_at
-          document.querySelector(".notification-form .message").innerHTML = notificationData.message
-        })
-      }
+      table.buttons().container()
+        .appendTo('#example_wrapper .col-md-6:eq(0)');
 
-      function loadNotification(id, cb) {
-        fetch(`http://localhost:3000/shownotification/${id}`).then(json => json.json()).then(json => cb(json))
-      }
+    });
 
-      function newNotification() {
-        document.querySelector(".notification-form").style.display = "none"
-        document.querySelector(".aviso-form").style.display = "block"
-      }
+    function loadNotificationAndShowForm(id) {
+      document.querySelector(".notification-form").style.display = "block"
+      document.querySelector(".edit-form").style.display = "none"
+      document.querySelector(".aviso-form").style.display = "none"
+      loadNotification(id, function (notificationData) {
+        document.querySelector(".notification-form .building").innerHTML = notificationData.building.address
+        document.querySelector(".notification-form .subject").innerHTML = notificationData.subject
+        document.querySelector(".notification-form .date").innerHTML = notificationData.created_at
+        document.querySelector(".notification-form .message").innerHTML = notificationData.message
+        document.querySelector(".notification-form .id").innerHTML = notificationData._id
+      })
+    }
 
-    </script>
+    function loadNotification(id, cb) {
+      fetch(`http://localhost:3000/shownotification/${id}`).then(json => json.json()).then(json => cb(json))
+    }
+
+    function newNotification() {
+      document.querySelector(".notification-form").style.display = "none"
+      document.querySelector(".edit-form").style.display = "none"
+      document.querySelector(".aviso-form").style.display = "block"
+    }
+
+    function editNotification() {
+      document.querySelector(".aviso-form").style.display = "none"
+      document.querySelector(".notification-form").style.display = "none"
+      document.querySelector(".edit-form").style.display = "block"
+
+      let id = document.querySelector(".notification-form .id").innerText
+      console.log(id)
+
+      loadNotification(id, function (notificationData) {
+        document.querySelector(".edit-form .building").innerHTML = notificationData.building.address
+        document.querySelector(".edit-form input[name=subject]").value = notificationData.subject
+        document.querySelector(".edit-form textarea").value = notificationData.message
+      })
+      debugger
+    }
+
+  </script>
 
 </body>
 
