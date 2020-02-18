@@ -10,7 +10,6 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
-
 router.get("/edificios", (req, res, next) => {
   Building.find()
     .then(building => {
@@ -72,17 +71,26 @@ router.post("/add/notification", (req, res, next) => {
 
 router.get("/shownotification/:id", (req, res, next) => {
   Notification.findById(req.params.id)
-  .populate('building').then(notification => {
-    // res.render('avisos', {notification: notification, hideform: true})
-    res.json(notification);
-  });
+    .populate("building")
+    .then(notification => {
+      // res.render('avisos', {notification: notification, hideform: true})
+      res.json(notification);
+    });
 });
 
-router.post("/edit/notification/:id/", (req, res, next) => {
+router.get("/edit/notification/:id", (req, res, next) => {
+  Notification.findById(req.params.id)
+    .populate("building")
+    .then(notification => {
+      // res.render('avisos', {notification: notification, hideform: true})
+      res.json(notification);
+    });
+});
+
+router.post("/edit/notification/:id", (req, res, next) => {
   Notification.findByIdAndUpdate(
     req.body.id,
     {
-      building: req.body.building,
       subject: req.body.subject,
       message: req.body.message
     },
