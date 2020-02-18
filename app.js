@@ -10,6 +10,7 @@ const logger = require("morgan");
 const path = require("path");
 
 const session = require("express-session");
+const passport = require('passport');
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 
@@ -79,7 +80,13 @@ app.use(
   })
 );
 app.use(flash());
-require("./passport")(app);
+// require("./passport")(app);
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 const index = require("./routes/index");
 app.use("/", index);
