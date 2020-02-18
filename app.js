@@ -10,15 +10,12 @@ const logger = require("morgan");
 const path = require("path");
 
 const session = require("express-session");
-const passport = require('passport');
+const passport = require("passport");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 
 mongoose
-  .connect("mongodb://localhost/proyectodos", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  .connect(`${process.env.DBR}`)
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
@@ -82,11 +79,8 @@ app.use(
 app.use(flash());
 // require("./passport")(app);
 
-
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 
 const index = require("./routes/index");
 app.use("/", index);
