@@ -62,7 +62,7 @@ dbConnect(() => {
   const Employee = require("../models/Employee");
   const Building = require("../models/Building");
   const Floor = require("../models/Floor");
-  const Expense = require("../models/Expense");
+  const Notification = require("../models/Notification");
   const User = require("../models/User");
 
   let admins = [
@@ -2136,7 +2136,31 @@ dbConnect(() => {
       imgName: "",
       imgPath: faker.image.avatar()
     },
-
+    {
+      _id: id_owner[37],
+      username: "christianbenjumea",
+      password: bcrypt.hashSync("owner", bcrypt.genSaltSync(saltRounds)),
+      name: "Christian Benjumea",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      floor: id_floor[37],
+      email: "christianbenjumea@gmail.com",
+      role: "owner",
+      imgName: "",
+      imgPath: faker.image.avatar()
+    },
+    {
+      username: "noemigranulo",
+      password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
+      name: "Noemi Granulo",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      floor: id_floor[37],
+      email: "noemigranulo@gmail.com",
+      role: "tenant",
+      imgName: "",
+      imgPath: faker.image.avatar()
+    },
     {
       _id: id_owner[38],
       username: "christianromero",
@@ -2833,6 +2857,19 @@ dbConnect(() => {
     }
   ];
 
+  let notifications = [
+    {
+      building: id_building[0],
+      subject: 'Cambio de cañería',
+      message: 'Se les comunica que el día 28/02 no habrá agua en todo el día debido al mencionado trabajo'
+    },
+    {
+      building: id_building[1],
+      subject: 'Portero eléctrico',
+      message: 'Está funcionando mal. Les comunicaremos cuándo pasarán a arreglarlo'
+    }
+  ];
+
   Admin.deleteMany()
     .then(() => {
       return Admin.create(admins);
@@ -2860,6 +2897,12 @@ dbConnect(() => {
     })
     .then(() => {
       return User.create(users);
+    })
+    .then(() => {
+      return Notification.deleteMany();
+    })
+    .then(() => {
+      return Notification.create(notifications);
     })
     .then(() => {
       console.log("succesfully added all the data");

@@ -87,10 +87,10 @@ app.use("/", index);
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
-const admin = require("./routes/admin/index");
-app.use("/admin", admin);
+// const admin = require("./routes/admin/index");
+// app.use("/admin", admin);
 
-const buildings = require("./routes/buildings/index");
-app.use("/buildings", buildings);
+// const buildings = require("./routes/buildings/index");
+// app.use("/buildings", buildings);
 
 module.exports = app;

@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Rukada - Responsive Bootstrap4 Admin Dashboard Template</title>
+  <title>Swift - Edificios</title>
   <!--favicon-->
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
   <!-- simplebar CSS-->
   <link href="/stylesheets/template/simplebar.css" rel="stylesheet" />
   <!-- Bootstrap core CSS-->
@@ -27,6 +27,9 @@
   <link href="/stylesheets/template/bootstrap-datatable/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
   <link href="/stylesheets/template/bootstrap-datatable/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
+  <!-- Style-->
+  <link href="/stylesheets/style.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -34,11 +37,9 @@
   <!-- Start wrapper-->
   <div id="wrapper">
 
-    <!--Start sidebar-wrapper-->
-      {{> menu}}
-    <!--End sidebar-wrapper--> 
-
-   
+<!--Start sidebar-wrapper-->
+  {{> menu}}
+<!--End sidebar-wrapper-->
 
     <!--Start topbar header-->
     <header class="topbar-nav">
@@ -95,22 +96,22 @@
           <div class="col-sm-9">
             <h4 class="page-title">Edificios</h4>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="javaScript:void();">Home</a></li>
+              <li class="breadcrumb-item"><a href='/'>Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Edificios</li>
             </ol>
           </div>
           <div class="col-sm-3">
             <div class="btn-group float-sm-right">
-              <button class="btn btn-success float-right">+ Add building</button>
+              <button class="btn btn-success float-right">+ agregar edificio</button>
             </div>
           </div>
         </div>
         <!-- End Breadcrumb-->
-
+        
         <div class="row">
           <div class="col-lg-12">
-            <div style="min-height:600px">
-              <!-- aca va la info -->
+            <div>
+             <!-- aca va la info -->
 
               <div class="row">
                 <div class="col-lg-12">
@@ -121,22 +122,22 @@
                         <table id="example" class="table table-bordered">
                           <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Owner</th>
-                              <th>Contact</th>
+                              <th>Address</th>
+                              <th>Year</th>
+                              <th>Floors</th>
                               <th style="width: 10%; text-align:center">Edit</th>
                               <th style="width: 10%; text-align:center">Delete</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {{#each floors}}
-                            <tr>
-                              <td>{{this.name}}</td>
-                              <td>{{this.owner.name}}</td>
-                              <td>{{this.owner.mobile}}</td>
-                              <td><button class="btn btn-warning btn-sm">Edit</button></td>
-                              <td><button class="btn btn-danger btn-sm">Delete</button></td>
-                            </tr>
+                            {{#each building}}
+                              <tr>
+                                <td><a href="/edificio/{{this._id}}">{{this.address}}</a></td>
+                                <td>{{this.year}}</td>
+                                <td>{{this.floors.length}}</td>
+                                <td><button class="btn btn-warning btn-sm button-building">Edit</button></td>
+                                <td><button class="btn btn-danger btn-sm button-building">Delete</button></td>
+                              </tr>
                             {{/each}}
                           </tbody>
                         </table>
@@ -162,13 +163,7 @@
     <!--End Back To Top Button-->
 
     <!--Start footer-->
-    <footer class="footer">
-      <div class="container">
-        <div class="text-center">
-          Copyright © 2018 Rukada Admin
-        </div>
-      </div>
-    </footer>
+      {{> footer}}
     <!--End footer-->
 
   </div>
