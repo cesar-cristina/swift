@@ -38,4 +38,7 @@ body {
 .min-height-notification {
   min-height: 500px; }
 
+.button-edit {
+  margin-top: -5px; }
+
 /*# sourceMappingURL=style.css.map */
