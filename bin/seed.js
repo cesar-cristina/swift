@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const faker = require("faker");
+require("dotenv").config();
 
 function dbConnect(cb) {
   mongoose
-    .connect("mongodb://localhost/proyectodos", {
+    .connect(`${process.env.DBR}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
