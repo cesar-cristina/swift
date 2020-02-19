@@ -4,10 +4,64 @@ const Building = require("../models/Building");
 const Floor = require("../models/Floor");
 const User = require("../models/User");
 const Notification = require("../models/Notification");
+const Supplier = require("../models/Supplier");
 
 /* GET home page */
 router.get("/", (req, res, next) => {
   res.render("index");
+});
+
+
+router.get("/empleados", (req, res, next) => {
+  User.find({where:{role: 'admin'}})
+    .then(user => {
+      res.render("empleados/empleados", {user});
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.get("/empleado/:id", (req, res, next) => {
+  User.findById(req.params.id)
+    .then(user => {
+      // res.json(building);
+      res.render("empleados/empleado", {user});
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.get("/proveedores", (req, res, next) => {
+  Supplier.find()
+    .then(supplier => {
+      res.render("proveedores/proveedores", { supplier });
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.get("/proveedor/:id", (req, res, next) => {
+  Supplier.findById(req.params.id)
+    .then(supplier => {
+      // res.json(building);
+      res.render("proveedores/proveedor", {supplier});
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.post("/edit/proveedor/:id/", (req, res, next) => {
+  Supplier.findByIdAndUpdate(
+    req.body.id,
+    {
+      username: req.body.username,
+      name: req.body.name,
+      address: req.body.address,
+      telephone: req.body.telephone,
+      mobile: req.body.mobile,
+      email: req.body.mobile,
+      service: req.body.service
+    },
+    { new: true }
+  ).then(() => {
+    res.redirect("/proveedores");
+  });
 });
 
 
@@ -72,10 +126,11 @@ router.post("/add/notification", (req, res, next) => {
 
 router.get("/shownotification/:id", (req, res, next) => {
   Notification.findById(req.params.id)
-  .populate('building').then(notification => {
-    // res.render('avisos', {notification: notification, hideform: true})
-    res.json(notification);
-  });
+    .populate("building")
+    .then(notification => {
+      // res.render('avisos', {notification: notification, hideform: true})
+      res.json(notification);
+    });
 });
 
 router.post("/edit/notification/:id/", (req, res, next) => {

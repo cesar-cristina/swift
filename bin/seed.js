@@ -64,6 +64,7 @@ dbConnect(() => {
   const Floor = require("../models/Floor");
   const Notification = require("../models/Notification");
   const User = require("../models/User");
+  const Supplier = require("../models/Supplier");
 
   let admins = [
     {
@@ -2870,6 +2871,34 @@ dbConnect(() => {
     }
   ];
 
+  let suppliers = [
+    {
+      username: 'lightsupplier',
+      name: 'nationalLightCompany',
+      address:'paseo virgen del puerto 0',
+      telephone: 91321781,
+      mobile: 614789520,
+      email: 'nationallightcompany@gmail.com',
+      service: 'light'
+    },
+    { username: 'gassupplier',
+      name: 'grisuGasCompany',
+      address:'calle goya 2',
+      telephone: 91147896,
+      mobile: 672983044,
+      email: 'grisucompany@gmail.com',
+      service: 'gas'
+    },
+    { username: 'watersupplier',
+      name: 'orinoccoWaterCompany',
+      address:'calle doctor fleming 1',
+      telephone: 91989693,
+      mobile: 621454649,
+      email: 'orinoccocompany@gmail.com',
+      service: 'water'
+    },
+  ]
+
   Admin.deleteMany()
     .then(() => {
       return Admin.create(admins);
@@ -2903,6 +2932,12 @@ dbConnect(() => {
     })
     .then(() => {
       return Notification.create(notifications);
+    })
+    .then(() => {
+      return Supplier.deleteMany();
+    })
+    .then(() => {
+      return Supplier.create(suppliers);
     })
     .then(() => {
       console.log("succesfully added all the data");
