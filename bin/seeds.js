@@ -61,7 +61,7 @@ dbConnect(() => {
   const Employee = require("../models/Employee");
   const Building = require("../models/Building");
   const Floor = require("../models/Floor");
-  const Expense = require("../models/Expense");
+  // const Expense = require("../models/Expense");
   const User = require("../models/User");
 
   let admins = [

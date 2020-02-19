@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Swift - {{this.address}}</title>
+  <!--favicon-->
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <!-- simplebar CSS-->
+  <link href="/stylesheets/template/simplebar.css" rel="stylesheet" />
+  <!-- Bootstrap core CSS-->
+  <link href="/stylesheets/template/bootstrap.min.css" rel="stylesheet" />
+  <!-- animate CSS-->
+  <link href="/stylesheets/template/animate.css" rel="stylesheet" type="text/css" />
+  <!-- Icons CSS-->
+  <link href="/stylesheets/template/icons.css" rel="stylesheet" type="text/css" />
+  <!-- Sidebar CSS-->
+  <link href="/stylesheets/template/sidebar-menu.css" rel="stylesheet" />
+  <!-- Custom Style-->
+  <link href="/stylesheets/template/app-style.css" rel="stylesheet" />
+
+  <!--Data Tables -->
+  <link href="/stylesheets/template/bootstrap-datatable/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/template/bootstrap-datatable/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Style-->
+  <link href="/stylesheets/style.css" rel="stylesheet" />
+</head>
+
+<body>
+
+  <!-- Start wrapper-->
+  <div id="wrapper">
+
+    <!--Start sidebar-wrapper-->
+      {{> menu}}
+    <!--End sidebar-wrapper--> 
+
+   
+
+    <!--Start topbar header-->
+    <header class="topbar-nav">
+      <nav class="navbar navbar-expand fixed-top bg-white">
+        <ul class="navbar-nav mr-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link toggle-menu" href="/">
+              <i class="icon-menu menu-icon"></i>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav align-items-center right-nav-link">
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+              <span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle"
+                  alt="user avatar"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li class="dropdown-item user-details">
+                <a href="javaScript:void();">
+                  <div class="media">
+                    <div class="avatar"><img class="align-self-start mr-3" src="https://via.placeholder.com/110x110"
+                        alt="user avatar"></div>
+                    <div class="media-body">
+                      <h6 class="mt-2 user-title">Katrina Mccoy</h6>
+                      <p class="user-subtitle">mccoy@example.com</p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-envelope mr-2"></i> Inbox</li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!--End topbar header-->
+
+    <div class="clearfix"></div>
+
+    <div class="content-wrapper">
+      <div class="container-fluid">
+
+        <!-- Breadcrumb-->
+        <div class="row pt-2 pb-2">
+          <div class="col-sm-9">
+            <h4 class="page-title">Proveedores</h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="javaScript:void();">Home</a></li>
+              <li class="breadcrumb-item"><a href="/proveedores">Proveedores</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{supplier.name}}</li>
+            </ol>
+          </div>
+          <div class="col-sm-3">
+            <div class="btn-group float-sm-right">
+              <button class="btn btn-success float-right">+ Agregar proveedor</button>
+            </div>
+          </div>
+        </div>
+        <!-- End Breadcrumb-->
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div>
+              <!-- aca va la info -->
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card">
+                    {{!-- <div class="card-header"> </div> --}}
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table id="example" class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th >Nombre</th>
+                              <th class="width-th">Servicio</th>
+                              <th>Dirección</th>
+                              <th>Teléfono</th>
+                              <th>Móvil</th>
+                              <th>Email</th>
+                              
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                        
+                            <tr>
+                              <td >{{supplier.name}}</td>
+                              <td class="width-name">{{supplier.service}}</td>
+                              <td>{{supplier.address}}</td>
+                              {{!-- {{#if this.rent}}
+                                <td><input type="checkbox" name="vehicle2" value="Car" checked disabled></td>
+                              {{else}}
+                                <td><input type="checkbox" name="vehicle2" value="Car" disabled></td>
+                              {{/if}} --}}
+                              <td>{{supplier.telephone}}</td>
+                              <td>{{supplier.mobile}}</td>
+                              <td>{{supplier.email}}</td>
+                              
+                            </tr>
+                          
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Row-->
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End container-fluid-->
+
+      <div class="overlay"></div>
+
+    </div>
+    <!--End content-wrapper-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+
+    <!--Start footer-->
+      {{> footer}}
+    <!--End footer-->
+
+  </div>
+  <!--End wrapper-->
+
+
+  <script src="/javascripts/template/jquery.min.js"></script>
+  <script src="/javascripts/template/popper.min.js"></script>
+  <script src="/javascripts/template/bootstrap.min.js"></script>
+  <script src="/javascripts/template/simplebar/js/simplebar.js"></script>
+  <script src="/javascripts/template/waves.js"></script>
+  <script src="/javascripts/template/sidebar-menu.js"></script>
+  <script src="/javascripts/template/app-script.js"></script>
+  <script src="/javascripts/script.js"></script>
+
+  <!--Data Tables js-->
+  <script src="/javascripts/template/data-table/jquery.dataTables.min.js"></script>
+  <script src="/javascripts/template/data-table/dataTables.bootstrap4.min.js"></script>
+  <script src="/javascripts/template/data-table/dataTables.buttons.min.js"></script>
+  <script src="/javascripts/template/data-table/buttons.bootstrap4.min.js"></script>
+  <script src="/javascripts/template/data-table/jszip.min.js"></script>
+  <script src="/javascripts/template/data-table/pdfmake.min.js"></script>
+  <script src="/javascripts/template/data-table/vfs_fonts.js"></script>
+  <script src="/javascripts/template/data-table/buttons.html5.min.js"></script>
+  <script src="/javascripts/template/data-table/buttons.print.min.js"></script>
+  <script src="/javascripts/template/data-table/buttons.colVis.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      //Default data table
+      $('#default-datatable').DataTable();
+
+
+      var table = $('#example').DataTable({
+        lengthChange: false,
+        buttons: ['copy', 'excel', 'pdf', 'print', 'colvis']
+      });
+
+      table.buttons().container()
+        .appendTo('#example_wrapper .col-md-6:eq(0)');
+
+    });
+
+  </script>
+
+</body>
+
+</html>

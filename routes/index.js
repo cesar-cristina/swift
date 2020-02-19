@@ -6,6 +6,7 @@ const User = require("../models/User");
 const Notification = require("../models/Notification");
 const nodemailer = require("nodemailer");
 const axios = require("axios");
+const Supplier = require("../models/Supplier");
 
 /* GET home page */
 router.get("/", (req, res, next) => {
@@ -15,6 +16,59 @@ router.get("/", (req, res, next) => {
 router.get("/auth", (req, res, next) => {
   res.render("auth/prueba");
 });
+
+router.get("/empleados", (req, res, next) => {
+  User.find({where:{role: 'admin'}})
+    .then(user => {
+      res.render("empleados/empleados", {user});
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.get("/empleado/:id", (req, res, next) => {
+  User.findById(req.params.id)
+    .then(user => {
+      // res.json(building);
+      res.render("empleados/empleado", {user});
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.get("/proveedores", (req, res, next) => {
+  Supplier.find()
+    .then(supplier => {
+      res.render("proveedores/proveedores", { supplier });
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.get("/proveedor/:id", (req, res, next) => {
+  Supplier.findById(req.params.id)
+    .then(supplier => {
+      // res.json(building);
+      res.render("proveedores/proveedor", {supplier});
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.post("/edit/proveedor/:id/", (req, res, next) => {
+  Supplier.findByIdAndUpdate(
+    req.body.id,
+    {
+      username: req.body.username,
+      name: req.body.name,
+      address: req.body.address,
+      telephone: req.body.telephone,
+      mobile: req.body.mobile,
+      email: req.body.mobile,
+      service: req.body.service
+    },
+    { new: true }
+  ).then(() => {
+    res.redirect("/proveedores");
+  });
+});
+
 
 router.get("/edificios", (req, res, next) => {
   Building.find()

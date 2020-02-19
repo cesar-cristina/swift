@@ -72,45 +72,24 @@ router.get("/login", (req, res, next) => {
 
 
 router.post("/login", (req, res, next) => {
-  const theUsername = req.body.username;
+  const username = req.body.username;
+  console.log(username)
   const thePassword = req.body.password;
 
-  // passport.authenticate("local", {
-  //   successReturnToOrRedirect: "/",
-  //   failureRedirect: "/login",
-  //   failureFlash: true,
-  //   passReqToCallback: true
-  // })
 
-  // const checkBossOrExpensesOrMaintenance = checkRoles(["boss", "expenses", "maintenance"]);
-
-  // function checkRoles(roles) {
-  //   // eslint-disable-next-line
-  //   return function(req, res, next) {
-  //     if (req.isAuthenticated() && roles.includes(req.user.role)) {
-  //       return next();
-  //     } else {
-  //       if (req.isAuthenticated()) {
-  //         res.redirect("/");
-  //       } else {
-  //         res.redirect("/login");
-  //       }
-  //     }
-  //   };
-  // }
-
-  if (theUsername === "" || thePassword === "") {
+  if (username === "" || thePassword === "") {
     res.render("auth/login", {
-      errorMessage: "Please enter both, username and password to sign up."
+      message: "Please enter both, username and password to sign up."
     });
     return;
   }
 
-  User.findOne({ "username": theUsername })
+  User.findOne({ username })
   .then(user => {
+    console.log(user)
       if (!user) {
         res.render("auth/login", {
-          errorMessage: "The username doesn't exist."
+          message: "The username doesn't exist."
         });
         return;
       }
@@ -120,7 +99,7 @@ router.post("/login", (req, res, next) => {
         res.redirect("/");
       } else {
         res.render("auth/login", {
-          errorMessage: "Incorrect password"
+          message: "Incorrect password"
         });
       }
   })
