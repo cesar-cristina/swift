@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
@@ -9,10 +9,22 @@ const userSchema = new Schema(
     telephone: Number,
     mobile: Number,
     email: String,
-    role: { type: String, enum: ["owner", "tenant"] },
+    role: { type: String, enum: ["user", "admin", "employee"] },
+    type: {
+      type: String,
+      enum: ["boss", "expenses", "maitenance", "owner", "tenant"]
+    },
     floor: { type: Schema.Types.ObjectId, ref: "Floor" },
     imgName: String,
-    imgPath: String
+    imgPath: String,
+    building: { type: Schema.Types.ObjectId, ref: "Building" },
+    salary: [
+      {
+        month: Number,
+        year: Number,
+        amount: Number
+      }
+    ]
   },
   {
     timestamps: {
@@ -22,5 +34,5 @@ const userSchema = new Schema(
   }
 );
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 module.exports = User;

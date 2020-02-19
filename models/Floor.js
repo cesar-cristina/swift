@@ -4,6 +4,7 @@ const Schema   = mongoose.Schema;
 const floorSchema = new Schema(
   {
     owner: { type: Schema.Types.ObjectId, ref: "User" },
+    tenant: { type: Schema.Types.ObjectId, ref: "User" },
     building: { type: Schema.Types.ObjectId, ref: "Building" },
     size: Number,
     name: String,
@@ -13,8 +14,7 @@ const floorSchema = new Schema(
         amount: Number,
         paid: { type: Boolean, default: false }
       }
-    ],
-    rent: { type: Boolean, default: false }
+    ]
   },
   {
     timestamps: {

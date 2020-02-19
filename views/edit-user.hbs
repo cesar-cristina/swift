@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Swift - {{this.address}}</title>
+  <title>Swift - {{this.name}}</title>
   <!--favicon-->
   <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
   <!-- simplebar CSS-->
@@ -22,10 +22,6 @@
   <link href="/stylesheets/template/sidebar-menu.css" rel="stylesheet" />
   <!-- Custom Style-->
   <link href="/stylesheets/template/app-style.css" rel="stylesheet" />
-
-  <!--Data Tables -->
-  <link href="/stylesheets/template/bootstrap-datatable/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
-  <link href="/stylesheets/template/bootstrap-datatable/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
   <!-- Style-->
   <link href="/stylesheets/style.css" rel="stylesheet" />
@@ -99,7 +95,8 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="javaScript:void();">Home</a></li>
               <li class="breadcrumb-item"><a href="/edificios">Edificios</a></li>
-              <li class="breadcrumb-item active" aria-current="page">{{this.address}}</li>
+              <li class="breadcrumb-item"><a href="/edificios">{{this.floor.address}}</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{this.name}}</li>
             </ol>
           </div>
         </div>
@@ -111,51 +108,48 @@
               <!-- aca va la info -->
 
               <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                   <div class="card">
                     {{!-- <div class="card-header"> </div> --}}
                     <div class="card-body">
-                      <div class="table-responsive">
-                        <table id="example" class="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th class="width-th">Piso</th>
-                              <th>Dueño</th>
-                              <th>Alquilado</th>
-                              <th>Contacto</th>
-                              <th class="width-th">Editar</th>
-                              <th class="width-th">Eliminar</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {{#each floors}}
-                            <tr>
-                              <td class="width-name">{{this.name}}</td>
-                              <td><a href="/edit/user/{{this.owner._id}}">{{this.owner.name}}</a></td>
-                              {{#if this.rent}}
-                              <td>
-                                <div class="icheck-material-success">
-                                  <input type="checkbox" id="success" checked disabled />
-                                  <label for="success"></label>
-                                </div>
-                              </td>
-                              {{else}}
-                              <td>
-                                <div class="icheck-material-success">
-                                  <input type="checkbox" id="success" disabled />
-                                  <label for="success"></label>
-                                </div>
-                              </td>
-                              {{/if}}
-                              <td>{{this.owner.mobile}}</td>
-                              <td class="width-th"><button class="btn btn-warning btn-sm button-building">Edit</button>
-                              </td>
-                              <td class="width-th"><button class="btn btn-danger btn-sm button-building">Delete</button>
-                              </td>
-                            </tr>
-                            {{/each}}
-                          </tbody>
-                        </table>
+                      <div class="card-body header-profile">
+                        <img src="{{this.imgPath}}" alt="{{this.name}}" class="profile">
+                        <h5 class="card-title">{{this.name}} - {{this.role}}</h5>
+                      </div>
+                      <hr>
+                      <div>
+                        <form action="/edit/user/{{this._id}}" method="POST">
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">Nombre</label>
+                              <input type="email" class="form-control" value="{{this.name}}">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">Email</label>
+                              <input type="text" class="form-control" value="{{this.email}}">
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">Teléfono</label>
+                              <input type="email" class="form-control" value="{{this.telephone}}">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">Mobil</label>
+                              <input type="text" class="form-control" value="{{this.mobile}}">
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">Piso</label>
+                              <input type="email" class="form-control" value="{{this.floor.name}}">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">Mobil</label>
+                              <input type="text" class="form-control" value="{{this.mobile}}">
+                            </div>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>

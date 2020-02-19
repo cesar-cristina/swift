@@ -13,6 +13,9 @@ body {
   margin-bottom: 7px;
   margin-left: 5px; }
 
+.logo-login {
+  width: 80px; }
+
 .logo-text {
   font-weight: 400;
   font-size: 22px; }
@@ -40,5 +43,17 @@ body {
 
 .button-edit {
   margin-top: -5px; }
+
+.profile {
+  border-radius: 50%; }
+
+.header-profile {
+  text-align: center; }
+
+.header-profile img {
+  margin-bottom: 20px; }
+
+.header-profile h5 {
+  font-size: 22px; }
 
 /*# sourceMappingURL=style.css.map */

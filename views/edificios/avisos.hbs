@@ -184,21 +184,22 @@
 
                       </div>
                       <hr>
-                      <form action="/edit/notification/id" method="POST">
+                      <form action="/edit/notification/`${_id}`" method="POST">
+                      <input type="hidden" class="form-control" name="id">
                         <div class="form-group">
                           <label>Edificio</label>
                           <div class="building"></div>
                         </div>
                         <div class="form-group">
                           <label for="input-1">Asunto</label>
-                          <input type="text" class="form-control" id="input-1" name="subject">
+                          <input type="text" class="form-control" name="subject">
                         </div>
                         <div class="form-group">
                           <label for="input-1">Mensaje</label>
                           <textarea class="form-control textarea-avisos" rows="4" name="message"></textarea>
                         </div>
                         <div class="form-group">
-                          <button class="btn btn-outline-success btn-sm btn-block ">enviar aviso</button>
+                          <button class="btn btn-outline-primary btn-sm btn-block ">Guardar cambios</button>
                         </div>
                       </form>
                     </div>
@@ -270,6 +271,7 @@
   <script src="/javascripts/template/sidebar-menu.js"></script>
   <script src="/javascripts/template/app-script.js"></script>
   <script src="/javascripts/script.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   <!--Data Tables js-->
   <script src="/javascripts/template/data-table/jquery.dataTables.min.js"></script>
@@ -333,6 +335,7 @@
         document.querySelector(".edit-form .building").innerHTML = notificationData.building.address
         document.querySelector(".edit-form input[name=subject]").value = notificationData.subject
         document.querySelector(".edit-form textarea").value = notificationData.message
+        let _id = document.querySelector(".edit-form input[name=id]").value = notificationData._id
       })
       debugger
     }

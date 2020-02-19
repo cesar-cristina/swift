@@ -6,7 +6,7 @@ require("dotenv").config();
 
 function dbConnect(cb) {
   mongoose
-    .connect(`${process.env.DBR}`, {
+    .connect(`${process.env.DBL}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
@@ -42,6 +42,7 @@ getMobile = () => {
 const id_building = [];
 const id_floor = [];
 const id_owner = [];
+const id_tenant = [];
 
 for (let i = 0; i < 5; i++) {
   id_building.push(new mongoose.mongo.ObjectId());
@@ -55,69 +56,18 @@ for (let i = 0; i < 100; i++) {
   id_owner.push(new mongoose.mongo.ObjectId());
 }
 
+for (let i = 0; i < 100; i++) {
+  id_tenant.push(new mongoose.mongo.ObjectId());
+}
+
 dbConnect(() => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hash = bcrypt.hashSync("123", salt);
 
-  const Admin = require("../models/Admin");
-  const Employee = require("../models/Employee");
   const Building = require("../models/Building");
   const Floor = require("../models/Floor");
   const Notification = require("../models/Notification");
   const User = require("../models/User");
-
-  let admins = [
-    {
-      username: "danivicario",
-      password: bcrypt.hashSync("admin", bcrypt.genSaltSync(saltRounds)),
-      name: "Dani",
-      lastname: "Vicario",
-      telephone: 981520492,
-      mobile: 672814057,
-      email: "dani.vicario@gmail.com",
-      role: "boss"
-    },
-    {
-      username: "frannaranjo",
-      password: bcrypt.hashSync("expenses", bcrypt.genSaltSync(saltRounds)),
-      name: "Fran",
-      lastname: "Naranjo",
-      telephone: 981520492,
-      mobile: 672814057,
-      email: "fran.naranjo@gmail.com",
-      role: "expenses"
-    },
-    {
-      username: "mariasimo",
-      password: bcrypt.hashSync("expenses", bcrypt.genSaltSync(saltRounds)),
-      name: "Maria",
-      lastname: "Simo",
-      telephone: 981520492,
-      mobile: 672814057,
-      email: "maria.simo@gmail.com",
-      role: "expenses"
-    },
-    {
-      username: "quique",
-      password: bcrypt.hashSync("maitenance", bcrypt.genSaltSync(saltRounds)),
-      name: "Enrique",
-      lastname: "Montaño",
-      telephone: 981520492,
-      mobile: 672814057,
-      email: "quique.montano@gmail.com",
-      role: "maitenance"
-    }
-  ];
-
-  let employess = [
-    {
-      username: "frankymolina",
-      password: "portero",
-      name: faker.name.firstName(),
-      lastname: faker.name.firstName(),
-      building: id_building[0]
-    }
-  ];
 
   let buildings = [
     {
@@ -287,6 +237,7 @@ dbConnect(() => {
     {
       _id: id_floor[0],
       owner: id_owner[0],
+      tenant: id_tenant[0],
       building: id_building[0],
       size: 40,
       name: "1A",
@@ -295,12 +246,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[1],
       owner: id_owner[1],
+      tenant: id_tenant[1],
       building: id_building[0],
       size: 40,
       name: "1B",
@@ -309,12 +260,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[2],
       owner: id_owner[2],
+      tenant: id_tenant[2],
       building: id_building[0],
       size: 40,
       name: "1C",
@@ -323,8 +274,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[3],
@@ -337,12 +287,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[4],
       owner: id_owner[4],
+      tenant: id_tenant[4],
       building: id_building[0],
       size: 40,
       name: "2A",
@@ -351,8 +301,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[5],
@@ -365,12 +314,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[6],
       owner: id_owner[6],
+      tenant: id_tenant[6],
       building: id_building[0],
       size: 40,
       name: "2C",
@@ -379,12 +328,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[7],
       owner: id_owner[7],
+      tenant: id_tenant[7],
       building: id_building[0],
       size: 40,
       name: "2D",
@@ -393,12 +342,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[8],
       owner: id_owner[8],
+      tenant: id_tenant[8],
       building: id_building[0],
       size: 40,
       name: "3A",
@@ -407,12 +356,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[9],
       owner: id_owner[9],
+      tenant: id_tenant[9],
       building: id_building[0],
       size: 40,
       name: "3B",
@@ -421,8 +370,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[10],
@@ -435,12 +383,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[11],
       owner: id_owner[11],
+      tenant: id_tenant[11],
       building: id_building[0],
       size: 40,
       name: "3D",
@@ -449,12 +397,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 100
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[12],
       owner: id_owner[12],
+      tenant: id_tenant[12],
       building: id_building[1],
       size: 65,
       name: "1A",
@@ -463,12 +411,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[13],
       owner: id_owner[13],
+      tenant: id_tenant[13],
       building: id_building[1],
       size: 65,
       name: "1B",
@@ -477,8 +425,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[14],
@@ -491,8 +438,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[15],
@@ -505,12 +451,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[16],
       owner: id_owner[16],
+      tenant: id_tenant[16],
       building: id_building[1],
       size: 65,
       name: "2B",
@@ -519,12 +465,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[17],
       owner: id_owner[17],
+      tenant: id_tenant[17],
       building: id_building[1],
       size: 65,
       name: "2C",
@@ -533,12 +479,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[18],
       owner: id_owner[18],
+      tenant: id_tenant[18],
       building: id_building[1],
       size: 65,
       name: "3A",
@@ -547,12 +493,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[19],
       owner: id_owner[19],
+      tenant: id_tenant[19],
       building: id_building[1],
       size: 65,
       name: "3B",
@@ -561,12 +507,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[20],
       owner: id_owner[20],
+      tenant: id_tenant[20],
       building: id_building[1],
       size: 65,
       name: "3C",
@@ -575,12 +521,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[21],
       owner: id_owner[21],
+      tenant: id_tenant[21],
       building: id_building[1],
       size: 65,
       name: "4A",
@@ -589,12 +535,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[22],
       owner: id_owner[22],
+      tenant: id_tenant[22],
       building: id_building[1],
       size: 65,
       name: "4B",
@@ -603,12 +549,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[23],
       owner: id_owner[23],
+      tenant: id_tenant[23],
       building: id_building[1],
       size: 65,
       name: "4C",
@@ -617,12 +563,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[24],
       owner: id_owner[24],
+      tenant: id_tenant[24],
       building: id_building[1],
       size: 65,
       name: "5A",
@@ -631,12 +577,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[25],
       owner: id_owner[25],
+      tenant: id_tenant[25],
       building: id_building[1],
       size: 65,
       name: "5B",
@@ -645,12 +591,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[26],
       owner: id_owner[26],
+      tenant: id_tenant[26],
       building: id_building[1],
       size: 65,
       name: "5C",
@@ -659,12 +605,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 80
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[27],
       owner: id_owner[27],
+      tenant: id_tenant[27],
       building: id_building[2],
       size: 100,
       name: "1A",
@@ -673,8 +619,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 70
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[28],
@@ -687,12 +632,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 70
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[29],
       owner: id_owner[29],
+      tenant: id_tenant[29],
       building: id_building[2],
       size: 100,
       name: "1C",
@@ -701,12 +646,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 70
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[30],
       owner: id_owner[30],
+      tenant: id_tenant[30],
       building: id_building[2],
       size: 100,
       name: "1D",
@@ -715,12 +660,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 70
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[31],
       owner: id_owner[31],
+      tenant: id_tenant[31],
       building: id_building[2],
       size: 100,
       name: "2A",
@@ -729,12 +674,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 70
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[32],
       owner: id_owner[32],
+      tenant: id_tenant[32],
       building: id_building[2],
       size: 100,
       name: "2B",
@@ -743,8 +688,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 70
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[33],
@@ -757,12 +701,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 70
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[34],
       owner: id_owner[34],
+      tenant: id_tenant[34],
       building: id_building[2],
       size: 100,
       name: "2D",
@@ -771,12 +715,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 70
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[35],
       owner: id_owner[35],
+      tenant: id_tenant[35],
       building: id_building[3],
       size: 120,
       name: "1A",
@@ -785,12 +729,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[36],
       owner: id_owner[36],
+      tenant: id_tenant[36],
       building: id_building[3],
       size: 120,
       name: "1B",
@@ -799,12 +743,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[37],
       owner: id_owner[37],
+      tenant: id_tenant[37],
       building: id_building[3],
       size: 120,
       name: "1C",
@@ -813,8 +757,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[38],
@@ -827,12 +770,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[39],
       owner: id_owner[39],
+      tenant: id_tenant[39],
       building: id_building[3],
       size: 120,
       name: "2B",
@@ -841,8 +784,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[40],
@@ -855,12 +797,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[41],
       owner: id_owner[41],
+      tenant: id_tenant[41],
       building: id_building[3],
       size: 120,
       name: "3A",
@@ -869,8 +811,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[42],
@@ -883,12 +824,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[43],
       owner: id_owner[43],
+      tenant: id_tenant[43],
       building: id_building[3],
       size: 120,
       name: "3C",
@@ -897,12 +838,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[44],
       owner: id_owner[44],
+      tenant: id_tenant[44],
       building: id_building[3],
       size: 120,
       name: "4A",
@@ -911,8 +852,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[45],
@@ -925,12 +865,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[46],
       owner: id_owner[46],
+      tenant: id_tenant[46],
       building: id_building[3],
       size: 120,
       name: "4C",
@@ -939,8 +879,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[47],
@@ -953,12 +892,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[48],
       owner: id_owner[48],
+      tenant: id_tenant[48],
       building: id_building[3],
       size: 120,
       name: "5B",
@@ -967,12 +906,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[49],
       owner: id_owner[49],
+      tenant: id_tenant[49],
       building: id_building[3],
       size: 120,
       name: "5C",
@@ -981,8 +920,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[50],
@@ -995,12 +933,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[51],
       owner: id_owner[51],
+      tenant: id_tenant[51],
       building: id_building[3],
       size: 120,
       name: "6B",
@@ -1009,12 +947,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[52],
       owner: id_owner[52],
+      tenant: id_tenant[52],
       building: id_building[3],
       size: 120,
       name: "6C",
@@ -1023,8 +961,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[53],
@@ -1037,12 +974,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[54],
       owner: id_owner[54],
+      tenant: id_tenant[54],
       building: id_building[3],
       size: 120,
       name: "7B",
@@ -1051,12 +988,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[55],
       owner: id_owner[55],
+      tenant: id_tenant[55],
       building: id_building[3],
       size: 120,
       name: "7C",
@@ -1065,12 +1002,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 90
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[56],
       owner: id_owner[56],
+      tenant: id_tenant[56],
       building: id_building[4],
       size: 150,
       name: "1A",
@@ -1079,8 +1016,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[57],
@@ -1093,12 +1029,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[58],
       owner: id_owner[58],
+      tenant: id_tenant[58],
       building: id_building[4],
       size: 150,
       name: "2A",
@@ -1107,12 +1043,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[59],
       owner: id_owner[59],
+      tenant: id_tenant[59],
       building: id_building[4],
       size: 150,
       name: "2B",
@@ -1121,12 +1057,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[60],
       owner: id_owner[60],
+      tenant: id_tenant[60],
       building: id_building[4],
       size: 150,
       name: "3A",
@@ -1135,8 +1071,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[61],
@@ -1149,12 +1084,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[62],
       owner: id_owner[62],
+      tenant: id_tenant[62],
       building: id_building[4],
       size: 150,
       name: "4A",
@@ -1163,12 +1098,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[63],
       owner: id_owner[63],
+      tenant: id_tenant[63],
       building: id_building[4],
       size: 150,
       name: "4B",
@@ -1177,12 +1112,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[64],
       owner: id_owner[64],
+      tenant: id_tenant[64],
       building: id_building[4],
       size: 150,
       name: "5A",
@@ -1191,12 +1126,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[65],
       owner: id_owner[65],
+      tenant: id_tenant[65],
       building: id_building[4],
       size: 150,
       name: "5B",
@@ -1205,12 +1140,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[66],
       owner: id_owner[66],
+      tenant: id_tenant[66],
       building: id_building[4],
       size: 150,
       name: "6A",
@@ -1219,8 +1154,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     },
     {
       _id: id_floor[67],
@@ -1233,8 +1167,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[68],
@@ -1247,8 +1180,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[69],
@@ -1261,8 +1193,7 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[70],
@@ -1275,12 +1206,12 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: false
+      ]
     },
     {
       _id: id_floor[71],
       owner: id_owner[71],
+      tenant: id_tenant[71],
       building: id_building[4],
       size: 150,
       name: "8B",
@@ -1289,12 +1220,70 @@ dbConnect(() => {
           month: "2020-01-31",
           amount: 110
         }
-      ],
-      rent: true
+      ]
     }
   ];
 
   let users = [
+    {
+      username: "danivicario",
+      password: bcrypt.hashSync("admin", bcrypt.genSaltSync(saltRounds)),
+      name: "Dani Vicario",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      email: "dani.vicario@gmail.com",
+      role: "admin",
+      type: "boss"
+    },
+    {
+      username: "frannaranjo",
+      password: bcrypt.hashSync("expenses", bcrypt.genSaltSync(saltRounds)),
+      name: "Fran Naranjo",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      email: "fran.naranjo@gmail.com",
+      role: "admin",
+      type: "expenses"
+    },
+    {
+      username: "mariasimo",
+      password: bcrypt.hashSync("expenses", bcrypt.genSaltSync(saltRounds)),
+      name: "Maria Simó",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      email: "maria.simo@gmail.com",
+      role: "admin",
+      type: "expenses"
+    },
+    {
+      username: "quique",
+      password: bcrypt.hashSync("maitenance", bcrypt.genSaltSync(saltRounds)),
+      name: "Enrique Montaño",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      email: "quique.montano@gmail.com",
+      role: "admin",
+      type: "maitenance"
+    },
+    {
+      username: "frankymolina",
+      password: "portero",
+      name: faker.name.findName(),
+      role: "employee",
+      building: id_building[0],
+      salary: [
+        {
+          month: 1,
+          year: 2020,
+          amount: 900
+        },
+        {
+          month: 2,
+          year: 2020,
+          amount: 900
+        }
+      ]
+    },
     {
       _id: id_owner[0],
       username: "alejandrosanchez",
@@ -1304,11 +1293,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[0],
       email: "alejandrosanchez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[0],
       username: "luisanaya",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Luis Anaya",
@@ -1316,7 +1307,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[0],
       email: "luisanaya@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1329,11 +1321,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[1],
       email: "alvaromonasterio@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[1],
       username: "luiscamacho",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Luis Camacho",
@@ -1341,7 +1335,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[1],
       email: "luiscamacho@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1354,11 +1349,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[2],
       email: "armandomomo@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[2],
       username: "mathiasrodriguezpires",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Mathias Rodriguez Pires",
@@ -1366,7 +1363,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[2],
       email: "mathiasrodriguezpires@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1379,7 +1377,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[3],
       email: "arturobruno@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1392,11 +1391,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[4],
       email: "barbislopez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[4],
       username: "maitedelila",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Maite Delila",
@@ -1404,7 +1405,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[4],
       email: "maitedelila@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1417,7 +1419,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[5],
       email: "fernandocomet@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1430,11 +1433,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[6],
       email: "frankymolina@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[6],
       username: "manuelalvarez",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Manuel Alvarez",
@@ -1442,7 +1447,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[6],
       email: "manuelalvarez@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1455,11 +1461,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[7],
       email: "jaimehidalgo@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[7],
       username: "margacambray",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Marga Cambray",
@@ -1467,7 +1475,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[7],
       email: "margacambray@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1480,11 +1489,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[8],
       email: "josegutierrez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[8],
       username: "omarvega",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Omar Vega",
@@ -1492,7 +1503,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[8],
       email: "omarvega@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1505,11 +1517,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[9],
       email: "josehenche@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[9],
       username: "mariamunera",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Maria Munera",
@@ -1517,7 +1531,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[9],
       email: "mariamunera@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1530,7 +1545,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[10],
       email: "juancarlosmateo@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1543,11 +1559,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[11],
       email: "lauratobajas@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[11],
       username: "mariannafitos",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Marianna Fitos",
@@ -1555,7 +1573,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[11],
       email: "mariannafitos@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1568,11 +1587,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[12],
       email: "lucianosanchez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[12],
       username: "martamarti",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Marta Marti",
@@ -1580,7 +1601,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[12],
       email: "martamarti@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1593,11 +1615,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[13],
       email: "manufernandez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[13],
       username: "matheuslavado",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Matheus Lavado",
@@ -1605,7 +1629,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[13],
       email: "matheuslavado@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1618,7 +1643,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[14],
       email: "marzolopez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1631,7 +1657,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[15],
       email: "miriammendez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1644,11 +1671,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[16],
       email: "pablocarceller@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[16],
       username: "micaelzamarreño",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Micael Zamarreño",
@@ -1656,7 +1685,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[16],
       email: "micaelzamarreño@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1670,11 +1700,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[17],
       email: "pedrocastañeda@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[17],
       username: "miguelalvarez",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Miguel Alvarez",
@@ -1682,7 +1714,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[17],
       email: "miguelalvarez@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1695,11 +1728,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[18],
       email: "pedrosanchez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[18],
       username: "miguelgarcia",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Miguel Garcia",
@@ -1707,7 +1742,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[18],
       email: "miguelgarcia@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1720,11 +1756,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[19],
       email: "soniagomez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[19],
       username: "oscarmartinez",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Oscar Martinez",
@@ -1732,7 +1770,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[19],
       email: "oscarmartinez@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1745,11 +1784,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[20],
       email: "victorrodriguez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[20],
       username: "opamelagonzalez",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Pamela Gonzalez",
@@ -1757,7 +1798,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[20],
       email: "pamelagonzalez@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1770,11 +1812,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[21],
       email: "victorrodriguez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "aaronfernandez@gmail.com",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[21],
       username: "paolapelaez",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Paola Pelaez",
@@ -1782,7 +1826,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[21],
       email: "paolapelaez@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1795,11 +1840,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[22],
       email: "abelcolmenares@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[22],
       username: "mireirafigueras",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Mireira Figueras",
@@ -1807,7 +1854,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[22],
       email: "mireirafigueras@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1820,11 +1868,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[23],
       email: "abelmoreno@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[23],
       username: "miriam",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Miriam",
@@ -1832,7 +1882,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[23],
       email: "miriam@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1845,11 +1896,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[24],
       email: "adrianllerena@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[24],
       username: "mirilopez",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Miri Lopez",
@@ -1857,7 +1910,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[24],
       email: "mirilopez@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1870,11 +1924,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[25],
       email: "adrianmerida@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[25],
       username: "monicaabad",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Monica Abad",
@@ -1882,7 +1938,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[25],
       email: "monicaabad@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1895,11 +1952,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[26],
       email: "blancavelazquez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[26],
       username: "moritzramm",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Moritz Ramm",
@@ -1907,7 +1966,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[26],
       email: "moritzramm@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1920,11 +1980,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[27],
       email: "bielmorro@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[27],
       username: "nachotramoyeres",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Nacho Tramoyeres",
@@ -1932,7 +1994,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[27],
       email: "nachotramoyeres@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1945,7 +2008,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[28],
       email: "brandymcarthur@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1958,11 +2022,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[29],
       email: "brunotavares@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[29],
       username: "natefalconer",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Nate Falconer",
@@ -1970,7 +2036,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[29],
       email: "natefalconer@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -1983,11 +2050,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[30],
       email: "camiloosorio@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[30],
       username: "nelsonaires",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Nelson Aires",
@@ -1995,7 +2064,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[30],
       email: "nelsonaires@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2008,11 +2078,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[31],
       email: "carlaonate@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[31],
       username: "nicholasshermon",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Nicholas Shermon",
@@ -2020,7 +2092,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[31],
       email: "nicholasshermon@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2033,11 +2106,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[32],
       email: "carlosarevalo@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[32],
       username: "olavocarvalho",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Olavo Carvalho",
@@ -2045,7 +2120,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[32],
       email: "olavocarvalho@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2058,7 +2134,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[33],
       email: "carloscortes@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2071,11 +2148,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[34],
       email: "carlosmuñoz@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[34],
       username: "paolarodriguezbarron",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Paola Rodriguez Barron",
@@ -2083,7 +2162,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[34],
       email: "paolarodriguezbarron@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2096,11 +2176,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[35],
       email: "cesarlugo@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[35],
       username: "ninalombardo",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Nina Lombardo",
@@ -2108,7 +2190,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[35],
       email: "ninalombardo@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2121,11 +2204,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[36],
       email: "chloeleteinturier@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[36],
       username: "ninoglonti",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Nino Glonti",
@@ -2133,7 +2218,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[36],
       email: "ninoglonti@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2146,11 +2232,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[37],
       email: "christianbenjumea@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[37],
       username: "noemigranulo",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Noemi Granulo",
@@ -2158,7 +2246,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[37],
       email: "noemigranulo@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2171,7 +2260,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[38],
       email: "christianromero@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2184,11 +2274,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[39],
       email: "andreabalica@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[39],
       username: "octavefernandez",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Octave Fernandez",
@@ -2196,7 +2288,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[39],
       email: "octavefernandez@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2209,7 +2302,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[40],
       email: "andresweber@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2222,11 +2316,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[41],
       email: "andrevitta@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[41],
       username: "mikomullen",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Miko Mullen",
@@ -2234,7 +2330,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[41],
       email: "mikomullen@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2247,7 +2344,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[42],
       email: "sandrabosk@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2260,11 +2358,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[43],
       email: "alejandrotorun@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[43],
       username: "nachomartinez",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Nacho Martinez",
@@ -2272,7 +2372,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[43],
       email: "nachomartinez@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2285,11 +2386,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[44],
       email: "alfredogonzalez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[44],
       username: "nosheitchang",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Osheit Chang",
@@ -2297,7 +2400,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[44],
       email: "osheitchang@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2310,7 +2414,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[45],
       email: "anahorta@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2323,11 +2428,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[46],
       email: "diegosantos@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[46],
       username: "pablosanchez",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Pablo Sanchez",
@@ -2335,7 +2442,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[46],
       email: "pablosanchez@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2348,7 +2456,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[47],
       email: "elviraramirez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2361,11 +2470,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[48],
       email: "elvisvolk@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[48],
       username: "pabloiriarte",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Pablo Iriarte",
@@ -2373,7 +2484,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[48],
       email: "pabloiriarte@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2386,11 +2498,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[49],
       email: "emiliopatiño@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[49],
       username: "pacovaca",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Paco Vaca",
@@ -2398,7 +2512,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[49],
       email: "pacovaca@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2411,7 +2526,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[50],
       email: "enriqueanaya@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2424,11 +2540,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[51],
       email: "estefaniaconocchioli@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[51],
       username: "pabloonieva",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Pablo Onieva",
@@ -2436,7 +2554,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[51],
       email: "pabloonieva@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2449,11 +2568,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[52],
       email: "estefaniaconocchioli@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[52],
       username: "pabloonieva",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Pablo Onieva",
@@ -2461,7 +2582,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[52],
       email: "pabloonieva@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2474,7 +2596,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[53],
       email: "estefaniamarchena@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2487,11 +2610,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[54],
       email: "esterbarroso@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[54],
       username: "marianeladobal",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Marianela Dobal",
@@ -2499,7 +2624,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[54],
       email: "marianeladobal@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2512,11 +2638,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[55],
       email: "estherdiaz@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[55],
       username: "pablogiral",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Pablo Giral",
@@ -2524,7 +2652,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[55],
       email: "pablogiral@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2537,11 +2666,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[56],
       email: "eugeniochang@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[56],
       username: "maxstuart",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Max Stuart",
@@ -2549,7 +2680,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[56],
       email: "maxstuart@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2562,7 +2694,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[57],
       email: "gonzalofidalgo@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2575,11 +2708,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[58],
       email: "gonzalohernandez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[58],
       username: "milenatyree",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Milena Tyree",
@@ -2587,7 +2722,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[58],
       email: "milenatyree@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2600,11 +2736,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[59],
       email: "gregoryafentoudilis@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[59],
       username: "patriciacarmona",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Patricia Carmona",
@@ -2612,7 +2750,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[59],
       email: "patriciacarmona@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2625,11 +2764,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[60],
       email: "gretacrocket@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[60],
       username: "patriciamartin",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Patricia Martin",
@@ -2637,7 +2778,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[60],
       email: "patriciamartin@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2650,7 +2792,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[61],
       email: "henryhoyos@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2663,11 +2806,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[62],
       email: "humbertobuniotto@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[62],
       username: "mafaldafragoso",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Mafalda Fragoso",
@@ -2675,7 +2820,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[62],
       email: "mafaldafragoso@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2688,11 +2834,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[63],
       email: "ignaciopalacios@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[63],
       username: "magalidit",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Magali Dit",
@@ -2700,7 +2848,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[63],
       email: "magalidit@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2713,11 +2862,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[64],
       email: "igorguitard@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[64],
       username: "mariapedauyé",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Maria Pedauyé",
@@ -2725,7 +2876,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[64],
       email: "mariapedauyé@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2738,11 +2890,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[65],
       email: "indragonzalez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[65],
       username: "omaravelar",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Omar Avelar",
@@ -2750,7 +2904,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[65],
       email: "omaravelar@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2763,11 +2918,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[66],
       email: "inescarballido@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[66],
       username: "miguelvian",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Miguel Vian",
@@ -2775,7 +2932,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[66],
       email: "miguelvian@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2788,7 +2946,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[67],
       email: "ingridisidro@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2801,7 +2960,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[68],
       email: "irenedemas@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2814,7 +2974,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[69],
       email: "isabelalemos@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2827,7 +2988,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[70],
       email: "israelmartinez@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
@@ -2840,11 +3002,13 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[71],
       email: "ivomatos@gmail.com",
-      role: "owner",
+      role: "user",
+      type: "owner",
       imgName: "",
       imgPath: faker.image.avatar()
     },
     {
+      _id: id_tenant[71],
       username: "mannygaraboa",
       password: bcrypt.hashSync("tenant", bcrypt.genSaltSync(saltRounds)),
       name: "Manny Garaboa",
@@ -2852,7 +3016,8 @@ dbConnect(() => {
       mobile: getMobile(),
       floor: id_floor[71],
       email: "mannygaraboa@gmail.com",
-      role: "tenant",
+      role: "user",
+      type: "tenant",
       imgName: "",
       imgPath: faker.image.avatar()
     }
@@ -2861,19 +3026,21 @@ dbConnect(() => {
   let notifications = [
     {
       building: id_building[0],
-      subject: 'Cambio de cañería',
-      message: 'Se les comunica que el día 28/02 no habrá agua en todo el día debido al mencionado trabajo'
+      subject: "Cambio de cañería",
+      message:
+        "Se les comunica que el día 28/02 no habrá agua en todo el día debido al mencionado trabajo"
     },
     {
       building: id_building[1],
-      subject: 'Portero eléctrico',
-      message: 'Está funcionando mal. Les comunicaremos cuándo pasarán a arreglarlo'
+      subject: "Portero eléctrico",
+      message:
+        "Está funcionando mal. Les comunicaremos cuándo pasarán a arreglarlo"
     }
   ];
 
-  Admin.deleteMany()
+  User.deleteMany()
     .then(() => {
-      return Admin.create(admins);
+      return User.create(users);
     })
     .then(() => {
       return Building.deleteMany();
@@ -2886,18 +3053,6 @@ dbConnect(() => {
     })
     .then(() => {
       return Floor.create(floors);
-    })
-    .then(() => {
-      return Employee.deleteMany();
-    })
-    .then(() => {
-      return Employee.create(employess);
-    })
-    .then(() => {
-      return User.deleteMany();
-    })
-    .then(() => {
-      return User.create(users);
     })
     .then(() => {
       return Notification.deleteMany();
