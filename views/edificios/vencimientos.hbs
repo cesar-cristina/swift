@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Swift - {{this.name}}</title>
+  <title>Swift - Vencimientos</title>
   <!--favicon-->
   <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
   <!-- simplebar CSS-->
@@ -23,8 +23,13 @@
   <!-- Custom Style-->
   <link href="/stylesheets/template/app-style.css" rel="stylesheet" />
 
+  <!--Data Tables -->
+  <link href="/stylesheets/template/bootstrap-datatable/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/template/bootstrap-datatable/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
   <!-- Style-->
   <link href="/stylesheets/style.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -36,14 +41,12 @@
     {{> menu}}
     <!--End sidebar-wrapper-->
 
-
-
     <!--Start topbar header-->
     <header class="topbar-nav">
       <nav class="navbar navbar-expand fixed-top bg-white">
         <ul class="navbar-nav mr-auto align-items-center">
           <li class="nav-item">
-            <a class="nav-link toggle-menu" href="/">
+            <a class="nav-link toggle-menu" href="javascript:void();">
               <i class="icon-menu menu-icon"></i>
             </a>
           </li>
@@ -91,13 +94,17 @@
         <!-- Breadcrumb-->
         <div class="row pt-2 pb-2">
           <div class="col-sm-9">
-            <h4 class="page-title">Edificios</h4>
+            <h4 class="page-title">Vencimientos</h4>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="javaScript:void();">Home</a></li>
-              <li class="breadcrumb-item"><a href="/edificios">Edificios</a></li>
-              <li class="breadcrumb-item"><a href="/edificio/{{this.floor.building._id}}">{{this.floor.building.address}}</a></li>
-              <li class="breadcrumb-item active" aria-current="page">{{this.name}}</li>
+              <li class="breadcrumb-item"><a href='/'>Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Vencimientos</li>
             </ol>
+          </div>
+          <div class="col-sm-3">
+            <div class="btn-group float-sm-right">
+              <button class="btn btn-success float-right" data-toggle="modal" data-target="#successmodal">+ agregar
+                vencimiento</button>
+            </div>
           </div>
         </div>
         <!-- End Breadcrumb-->
@@ -108,40 +115,33 @@
               <!-- aca va la info -->
 
               <div class="row">
-                <div class="col-lg-9" style="margin: 0 auto">
+                <div class="col-lg-12">
                   <div class="card">
                     {{!-- <div class="card-header"> </div> --}}
                     <div class="card-body">
-                      <div class="card-body header-profile">
-                        <img src="{{this.imgPath}}" alt="{{this.name}}" class="profile">
-                        <h5 class="card-title">{{this.name}} - Dueño</h5>
-                      </div>
-                      <hr>
-                      <div>
-                        <form action="/edit/user/{{this._id}}" method="POST">
-                        <input type="hidden" value="{{this._id}}">
-                          <div class="form-row">
-                            <div class="form-group col-md-6">
-                              <label for="inputPassword4">Email</label>
-                              <input type="email" class="form-control" name="email" value="{{this.email}}">
-                            </div>
-                            <div class="form-group col-md-6">
-                              <label for="inputEmail4">Piso</label>
-                              <input type="text" class="form-control" name="name" value="{{this.floor.name}}">
-                            </div>
-                          </div>
-                          <div class="form-row">
-                            <div class="form-group col-md-6">
-                              <label for="inputEmail4">Teléfono</label>
-                              <input type="text" class="form-control" name="telephone" value="{{this.telephone}}">
-                            </div>
-                            <div class="form-group col-md-6">
-                              <label for="inputPassword4">Mobil</label>
-                              <input type="text" class="form-control" name="mobile" value="{{this.mobile}}">
-                            </div>
-                          </div>
-                          <button class="btn btn-outline-warning btn-block">Guardar cambios</button>
-                        </form>
+                      <div class="table-responsive">
+                        <table id="example" class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Edificio</th>
+                              <th>Servicio</th>
+                              <th>Monto</th>
+                              <th>Vencimiento</th>
+                              <th style="width: 10%; text-align:center">Editar</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each vencimientos}}
+                            <tr>
+                              <td>{{building.address}}</a></td>
+                              <td>{{supplier.service}}</td>
+                              <td>€ {{this.amount}}</td>
+                              <td>{{this.formatedDate}}</td>
+                              <td><a href="/edit/vencimiento/{{this._id}}" class="btn btn-warning btn-sm button-size-table">Edit</a></td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
@@ -154,6 +154,63 @@
 
       </div>
       <!-- End container-fluid-->
+
+      <!--Success  Modal -->
+
+      <div class="modal fade" id="successmodal">
+        <div class="modal-dialog">
+          <div class="modal-content border-success">
+            <div class="modal-header bg-success">
+              <h5 class="modal-title text-white">Ingresar nuevo vencimiento</h5>
+              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/add/vencimiento" method="POST">
+                <div class="form-group">
+                  <label>Edificio</label>
+                  <select class="form-control single-select" name="building">
+                    <option>Seleccionar</option>
+                    {{#each buildings}}
+                    <option value="{{this._id}}">{{this.address}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Servicio</label>
+                  <select class="form-control single-select" name="supplier">
+                    <option>Seleccionar</option>
+                    {{#each supplier}}
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="input-1">Fecha de vencimiento</label>
+                  <input type="date" class="form-control" id="input-1" name="expireDate" required>
+                </div>
+                <div class="form-group">
+                  <label for="input-1">Monto</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">€</span>
+                    </div>
+                    <input type="text" class="form-control" name="amount" placeholder="Ingrese el monto">
+                  </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-inverse-danger" data-dismiss="modal"><i class="fa fa-times"></i>
+                Cancelar</button>
+              <button class="btn btn-outline-success"><i class="fa fa-check-square-o"></i> Guardar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Modal -->
 
       <div class="overlay"></div>
 

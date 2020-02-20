@@ -125,7 +125,6 @@
                               <th>Nombre</th>
                               <th>Rol</th>
                               <th>Teléfono</th>
-                              <th>Dirección</th>
                               <th>Email</th>
 
                               <th style="width: 10%; text-align:center">Edit</th>
@@ -133,12 +132,11 @@
                             </tr>
                           </thead>
                           <tbody>
-                            {{#each admin}}
+                            {{#each user}}
                               <tr>
                                 <td><a href="/empleado/{{this._id}}">{{this.name}}</a></td>
                                 <td>{{this.type}}</td>
                                 <td>{{this.mobile}}</td>
-                                <td>{{this.address}}</td>
                                 <td>{{this.email}}</td>
 
                                 <td><button class="btn btn-warning btn-sm button-admin">Edit</button></td>

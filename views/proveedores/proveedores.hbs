@@ -102,7 +102,7 @@
           </div>
           <div class="col-sm-3">
             <div class="btn-group float-sm-right">
-              <button class="btn btn-success float-right">+ agregar proveedor</button>
+              <button class="btn btn-success float-right" data-toggle="modal" data-target="#successmodal">+ agregar proveedor</button>
             </div>
           </div>
         </div>
@@ -137,8 +137,8 @@
                                 <td>{{this.service}}</td>
                                 <td>{{this.mobile}}</td>
                                 
-                                <td><button class="btn btn-warning btn-sm button-supplier">Edit</button></td>
-                                <td><button class="btn btn-danger btn-sm button-supplier">Delete</button></td>
+                                <td><a href="edit/proveedor/{{this._id}}" class="btn btn-warning btn-sm button-size-table">Edit</a></td>
+                                <td><button class="btn btn-danger btn-sm button-size-table">Delete</button></td>
                               </tr>
                             {{/each}}
                           </tbody>
@@ -157,6 +157,51 @@
       <!-- End container-fluid-->
 
       <div class="overlay"></div>
+
+      <!--Success  Modal -->
+      
+      <div class="modal fade" id="successmodal">
+        <div class="modal-dialog">
+          <div class="modal-content border-success">
+            <div class="modal-header bg-success">
+              <h5 class="modal-title text-white">Ingresar nuevo proveedor</h5>
+              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/add/proveedor" method="POST">
+                <div class="form-group">
+                  <label>Nombre</label>
+                  <input type="text" class="form-control" name="name" required>
+                </div>
+                <div class="form-group">
+                  <label>Dirección</label>
+                  <input type="text" class="form-control" name="address" required>
+                </div>
+                <div class="form-group">
+                  <label for="input-1">Servicio</label>
+                  <input type="text" class="form-control" name="service" required>
+                </div>
+                <div class="form-group">
+                  <label>Teléfono</label>
+                  <input type="text" class="form-control" name="telephone" required>
+                </div>
+                <div class="form-group">
+                  <label>Movil</label>
+                  <input type="text" class="form-control" name="mobile" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-inverse-danger" data-dismiss="modal"><i class="fa fa-times"></i>
+                Cancelar</button>
+              <button class="btn btn-outline-success"><i class="fa fa-check-square-o"></i> Guardar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Modal -->
 
     </div>
     <!--End content-wrapper-->

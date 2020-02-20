@@ -95,7 +95,8 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="javaScript:void();">Home</a></li>
               <li class="breadcrumb-item"><a href="/edificios">Edificios</a></li>
-              <li class="breadcrumb-item"><a href="/edificio/{{this.floor.building._id}}">{{this.floor.building.address}}</a></li>
+              <li class="breadcrumb-item"><a
+                  href="/edificio/{{this.floor.building._id}}">{{this.floor.building.address}}</a></li>
               <li class="breadcrumb-item active" aria-current="page">{{this.name}}</li>
             </ol>
           </div>
@@ -119,7 +120,7 @@
                       <hr>
                       <div>
                         <form action="/edit/user/{{this._id}}" method="POST">
-                        <input type="hidden" value="{{this._id}}">
+                          <input type="hidden" value="{{this._id}}">
                           <div class="form-row">
                             <div class="form-group col-md-6">
                               <label for="inputPassword4">Email</label>

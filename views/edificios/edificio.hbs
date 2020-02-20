@@ -119,41 +119,56 @@
                         <table id="example" class="table table-bordered">
                           <thead>
                             <tr>
-                              <th class="width-th">Piso</th>
-                              <th>Dueño</th>
-                              <th>Alquilado</th>
-                              <th>Contacto</th>
-                              <th class="width-th">Editar</th>
-                              <th class="width-th">Eliminar</th>
+                              <th class="width-10">#</th>
+                              <th class="width-15">Dueño</th>
+                              <th class="width-25">Email</th>
+                              <th class="width-15">Alq</th>
+                              <th class="width-15">Movil</th>
+                              <th class="width-10">Editar</th>
+                              <th class="width-10">Eliminar</th>
                             </tr>
                           </thead>
                           <tbody>
                             {{#each floors}}
+                            <form action="/">
                             <tr>
-                              <td class="width-name">{{this.name}}</td>
-                              <td><a href="/edit/user/{{this.owner._id}}">{{this.owner.name}}</a></td>
-                              {{#if this.rent}}
-                              <td>
-                                <div class="icheck-material-success">
-                                  <input type="checkbox" id="success" checked disabled />
-                                  <label for="success"></label>
-                                </div>
-                              </td>
+                              {{#if this.name}}
+                                <td class="width-10">{{this.name}}</td>
                               {{else}}
-                              <td>
-                                <div class="icheck-material-success">
-                                  <input type="checkbox" id="success" disabled />
-                                  <label for="success"></label>
-                                </div>
-                              </td>
+                                <td class="width-10 sin-datos"><div>Sin datos</div></td>
                               {{/if}}
-                              <td>{{this.owner.mobile}}</td>
-                              <td class="width-th"><button class="btn btn-warning btn-sm button-building">Edit</button>
+
+                              {{#if this.owner.name}}
+                                <td><a href="/edit/user/{{this.owner._id}}">{{this.owner.name}}</a></td>
+                              {{else}}
+                                <td class="width-15 sin-datos"><div>Sin datos</div></td>
+                              {{/if}}
+
+                              {{#if this.owner.name}}
+                              <td>{{this.owner.email}}</a></td>
+                              {{else}}
+                              <td class="width-25 sin-datos"><div>Sin datos</div></td>
+                              {{/if}}
+                              
+                              {{#if this.tenant}}
+                              <td class="width-15"><button class="btn btn-sm btn-light button-size-table">Alquilado</button></td>
+                              {{else}}
+                                <td class="width-15 sin-datos"></td>
+                              {{/if}}
+
+                              {{#if this.owner.name}}
+                                <td>{{this.owner.mobile}}</td>
+                              {{else}}
+                                <td class="width-15 sin-datos"><div>Sin datos</div></td>
+                              {{/if}}
+                              <td class="width-10"><a href="/edit/piso/{{this._id}}" class="btn btn-warning btn-sm button-size-table">Editar</a>
                               </td>
-                              <td class="width-th"><button class="btn btn-danger btn-sm button-building">Delete</button>
+                              <td class="width-10"><button class="btn btn-danger btn-sm button-size-table">Eliminar</button>
                               </td>
                             </tr>
+                            </form>
                             {{/each}}
+                            
                           </tbody>
                         </table>
                       </div>

@@ -7,6 +7,9 @@ const Notification = require("../models/Notification");
 const nodemailer = require("nodemailer");
 const axios = require("axios");
 const Supplier = require("../models/Supplier");
+const Vencimiento = require("../models/Vencimiento");
+const moment = require("moment");
+const mongoose = require("mongoose");
 
 /* GET home page */
 router.get("/", (req, res, next) => {
@@ -18,9 +21,9 @@ router.get("/auth", (req, res, next) => {
 });
 
 router.get("/empleados", (req, res, next) => {
-  User.find({where:{role: 'admin'}})
+  User.find({ role: "admin" })
     .then(user => {
-      res.render("empleados/empleados", {user});
+      res.render("empleados/empleados", { user });
     })
     .catch(err => console.log("error", err));
 });
@@ -29,7 +32,7 @@ router.get("/empleado/:id", (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       // res.json(building);
-      res.render("empleados/empleado", {user});
+      res.render("empleados/empleado", { user });
     })
     .catch(err => console.log("error", err));
 });
@@ -42,11 +45,30 @@ router.get("/proveedores", (req, res, next) => {
     .catch(err => console.log("error", err));
 });
 
+router.post("/add/proveedor", (req, res, next) => {
+  Supplier.create({
+    name: req.body.name,
+    address: req.body.address,
+    service: req.body.service,
+    telephone: req.body.telephone,
+    mobile: req.body.mobile
+  }).then(() => {
+    res.redirect("/proveedores");
+  });
+});
+
 router.get("/proveedor/:id", (req, res, next) => {
   Supplier.findById(req.params.id)
     .then(supplier => {
-      // res.json(building);
-      res.render("proveedores/proveedor", {supplier});
+      res.render("proveedores/proveedor", { supplier });
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.get("/edit/proveedor/:id", (req, res, next) => {
+  Supplier.findById(req.params.id)
+    .then(supplier => {
+      res.render("proveedores/edit-proveedor", { supplier });
     })
     .catch(err => console.log("error", err));
 });
@@ -55,12 +77,10 @@ router.post("/edit/proveedor/:id/", (req, res, next) => {
   Supplier.findByIdAndUpdate(
     req.body.id,
     {
-      username: req.body.username,
       name: req.body.name,
       address: req.body.address,
       telephone: req.body.telephone,
       mobile: req.body.mobile,
-      email: req.body.mobile,
       service: req.body.service
     },
     { new: true }
@@ -69,7 +89,6 @@ router.post("/edit/proveedor/:id/", (req, res, next) => {
   });
 });
 
-
 router.get("/edificios", (req, res, next) => {
   Building.find()
     .then(building => {
@@ -77,6 +96,31 @@ router.get("/edificios", (req, res, next) => {
       res.render("edificios/edificios", { building });
     })
     .catch(err => console.log("error", err));
+});
+
+router.post("/add/edificio", (req, res, next) => {
+  let id_floors = [];
+
+  for (let i = 0; i < req.body.floors; i++) {
+    id_floors.push(new mongoose.mongo.ObjectId());
+  }
+
+  Building.create({
+    address: req.body.address,
+    floors: id_floors,
+    startDate: req.body.startDate,
+    year: req.body.year
+  })
+    .then(() => {
+      for (let i = 0; i < id_floors.length; i++) {
+        Floor.create({
+          _id: id_floors[i]
+        });
+      }
+    })
+    .then(() => {
+      res.redirect("/edificios");
+    });
 });
 
 router.get("/edificio/:id", (req, res, next) => {
@@ -104,13 +148,34 @@ router.get("/piso/:id", (req, res, next) => {
     .catch(err => console.log("error", err));
 });
 
+router.get("/edit/piso/:id", (req, res, next) => {
+  Floor.findById(req.params.id)
+    .then(piso => {
+      // res.json(user);
+      res.render("edit-piso", piso);
+    })
+    .catch(err => console.log("error", err));
+});
+
 router.get("/edit/user/:id", (req, res, next) => {
   User.findById(req.params.id)
     .populate({
-      path: "floors",
+      path: "floor",
       populate: {
         path: "owner",
         model: "User"
+      }
+    })
+    .populate({
+      path: "floor",
+      populate: {
+        path: "_id"
+      }
+    })
+    .populate({
+      path: "floor",
+      populate: {
+        path: "building"
       }
     })
     .then(user => {
@@ -120,18 +185,31 @@ router.get("/edit/user/:id", (req, res, next) => {
     .catch(err => console.log("error", err));
 });
 
+router.post("/edit/user/:id/", (req, res, next) => {
+  User.findByIdAndUpdate(
+    req.body.id,
+    {
+      email: req.body.email,
+      name: req.body.name,
+      telephone: req.body.telephone,
+      mobile: req.body.mobile
+    },
+    { new: true }
+  ).then(() => {
+    res.redirect("/edificios");
+  });
+});
+
 router.get("/avisos", (req, res, next) => {
   Notification.find()
     .populate("building")
     .then(notification => {
       Building.find().then(buildings => {
-        // res.json(buildings)
         res.render("edificios/avisos", {
           notification: notification,
           buildings: buildings
         });
       });
-      // res.json(notification)
     });
 });
 
@@ -170,7 +248,6 @@ router.get("/shownotification/:id", (req, res, next) => {
   Notification.findById(req.params.id)
     .populate("building")
     .then(notification => {
-      // res.render('avisos', {notification: notification, hideform: true})
       res.json(notification);
     });
 });
@@ -179,7 +256,6 @@ router.get("/edit/notification/:id", (req, res, next) => {
   Notification.findById(req.params.id)
     .populate("building")
     .then(notification => {
-      // res.render('avisos', {notification: notification, hideform: true})
       res.json(notification);
     });
 });
@@ -226,6 +302,72 @@ router.get("/building/:id", (req, res, next) => {
       res.json(emails);
       res.render("edificios/emails", building);
     });
+});
+
+router.get("/vencimientos", (req, res, next) => {
+  Vencimiento.find()
+    .populate("building")
+    .populate("supplier")
+    .then(vencimientos => {
+      // res.json(vencimientos);
+
+      vencimientos = vencimientos.map(element => {
+        element.formatedDate = moment(element.expireDate).format("DD-MM-YYYY");
+        return element;
+      });
+
+      Building.find()
+        .then(buildings => {
+          return buildings;
+        })
+        .then(buildings => {
+          Supplier.find().then(supplier => {
+            res.render("edificios/vencimientos", {
+              vencimientos: vencimientos,
+              buildings: buildings,
+              supplier: supplier
+            });
+          });
+        });
+    });
+});
+
+router.post("/add/vencimiento", (req, res, next) => {
+  Vencimiento.create({
+    building: req.body.building,
+    supplier: req.body.supplier,
+    amount: req.body.amount,
+    expireDate: req.body.expireDate
+  }).then(() => {
+    res.redirect("/vencimientos");
+  });
+});
+
+router.get("/edit/vencimiento/:id", (req, res, next) => {
+  Vencimiento.findById(req.params.id)
+    .populate("building")
+    .populate("supplier")
+    .then(vencimiento => {
+      vencimiento.formatDate = moment(vencimiento.expireDate).format(
+        "YYYY-MM-DD"
+      );
+      res.render("edit-vencimiento", { vencimiento });
+    });
+});
+
+router.post("/edit/vencimiento/:id", (req, res, next) => {
+  moment(req.body.expireDate, 'YYYY-MM-DD').toDate();
+  Vencimiento.findByIdAndUpdate(
+    req.params.id,
+    {
+      amount: req.body.amount,
+      expireDate: req.body.expireDate
+    },
+    { new: true }
+  ).then(vencimiento => {
+    console.log(req.body.amount);
+    res.redirect("/vencimientos");
+  });
 });
 
 module.exports = router;

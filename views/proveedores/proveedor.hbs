@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Swift - {{this.address}}</title>
+  <title>Swift - {{supplier.name}}</title>
   <!--favicon-->
   <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
   <!-- simplebar CSS-->
@@ -111,52 +111,48 @@
         <!-- End Breadcrumb-->
 
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-9 text-center" style="margin: 0 auto; margin-top: 30px">
             <div>
               <!-- aca va la info -->
-
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="card">
-                    {{!-- <div class="card-header"> </div> --}}
-                    <div class="card-body">
-                      <div class="table-responsive">
-                        <table id="example" class="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th >Nombre</th>
-                              <th class="width-th">Servicio</th>
-                              <th>Dirección</th>
-                              <th>Teléfono</th>
-                              <th>Móvil</th>
-                              <th>Email</th>
-                              
-                              
-                            </tr>
-                          </thead>
-                          <tbody>
-                        
-                            <tr>
-                              <td >{{supplier.name}}</td>
-                              <td class="width-name">{{supplier.service}}</td>
-                              <td>{{supplier.address}}</td>
-                              {{!-- {{#if this.rent}}
-                                <td><input type="checkbox" name="vehicle2" value="Car" checked disabled></td>
-                              {{else}}
-                                <td><input type="checkbox" name="vehicle2" value="Car" disabled></td>
-                              {{/if}} --}}
-                              <td>{{supplier.telephone}}</td>
-                              <td>{{supplier.mobile}}</td>
-                              <td>{{supplier.email}}</td>
-                              
-                            </tr>
-                          
-                          </tbody>
-                        </table>
-                      </div>
+              <div class="col-lg-12">
+                <div class="card">
+                  {{!-- <div class="card-header"> </div> --}}
+                  <div class="card-body">
+                    <div class="card-body header-profile">
+                      <h5 class="card-title">{{supplier.name}}</h5>
+                    </div>
+                    <hr>
+                    <div>
+                      <form action="/edit/user/{{this._id}}" method="POST">
+                        <input type="hidden" value="{{this._id}}">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label class="text-success">Servicio</label>
+                            <div>{{supplier.service}}</div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label class="text-success">Dirección</label>
+                            <div>{{supplier.address}}</div>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label class="text-success">Teléfono</label>
+                            <div>{{supplier.telephone}}</div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label class="text-success">Mobil</label>
+                            <div>{{supplier.mobile}}</div>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              
+                
               </div><!-- End Row-->
 
             </div>

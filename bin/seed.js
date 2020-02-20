@@ -6,7 +6,7 @@ require("dotenv").config();
 
 function dbConnect(cb) {
   mongoose
-    .connect(`${process.env.DBL}`, {
+    .connect(`${process.env.DBR}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
@@ -43,6 +43,7 @@ const id_building = [];
 const id_floor = [];
 const id_owner = [];
 const id_tenant = [];
+const id_supplier = [];
 
 for (let i = 0; i < 5; i++) {
   id_building.push(new mongoose.mongo.ObjectId());
@@ -60,6 +61,10 @@ for (let i = 0; i < 100; i++) {
   id_tenant.push(new mongoose.mongo.ObjectId());
 }
 
+for (let i = 0; i < 10; i++) {
+  id_supplier.push(new mongoose.mongo.ObjectId());
+}
+
 dbConnect(() => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hash = bcrypt.hashSync("123", salt);
@@ -69,6 +74,7 @@ dbConnect(() => {
   const Notification = require("../models/Notification");
   const User = require("../models/User");
   const Supplier = require("../models/Supplier");
+  const Vencimiento = require("../models/Vencimiento");
 
   let buildings = [
     {
@@ -3039,66 +3045,109 @@ dbConnect(() => {
     }
   ];
 
-
   let suppliers = [
     {
-      username: 'lightsupplier',
-      name: 'nationalLightCompany',
-      address:'paseo virgen del puerto 0',
-      telephone: 91321781,
-      mobile: 614789520,
-      email: 'nationallightcompany@gmail.com',
-      service: 'light'
+      _id: id_supplier[0],
+      name: "EdP Energia - Luz",
+      address: "paseo virgen del puerto 0",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      service: "Luz"
     },
-    { username: 'gassupplier',
-      name: 'grisuGasCompany',
-      address:'calle goya 2',
-      telephone: 91147896,
-      mobile: 672983044,
-      email: 'grisucompany@gmail.com',
-      service: 'gas'
+    {
+      _id: id_supplier[1],
+      name: "EdP Energia - Gas",
+      address: "calle goya 2",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      service: "Gas"
     },
-    { username: 'watersupplier',
-      name: 'orinoccoWaterCompany',
-      address:'calle doctor fleming 1',
-      telephone: 91989693,
-      mobile: 621454649,
-      email: 'orinoccocompany@gmail.com',
-      service: 'water'
+    {
+      _id: id_supplier[2],
+      name: "Canal de Ysabel II",
+      address: "calle doctor fleming 1",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      service: "Agua"
     },
-  ]
+    {
+      _id: id_supplier[3],
+      name: "Pedro Lopez",
+      address: "calle Manuel Alexander 16",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      service: "Electricista"
+    },
+    {
+      _id: id_supplier[4],
+      name: "Facundo Gomez",
+      address: "calle doctor fleming 10",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      service: "Fontanero"
+    },
+    {
+      _id: id_supplier[5],
+      name: "Horacio Gimenez",
+      address: "calle Paseo de la Chopera 8",
+      telephone: getPhone(),
+      mobile: getMobile(),
+      service: "Albañil"
+    }
+  ];
 
-    User.deleteMany()
-      .then(() => {
-        return User.create(users);
-      })
-      .then(() => {
-        return Building.deleteMany();
-      })
-      .then(() => {
-        return Building.create(buildings);
-      })
-      .then(() => {
-        return Floor.deleteMany();
-      })
-      .then(() => {
-        return Floor.create(floors);
-      })
-      .then(() => {
-        return Notification.deleteMany();
-      })
-      .then(() => {
-        return Notification.create(notifications);
-      })
-      .then(() => {
-        return Supplier.deleteMany();
-      })
-      .then(() => {
-        return Supplier.create(suppliers);
-      })
-      .then(() => {
-        console.log("succesfully added all the data");
-        mongoose.connection.close();
-        process.exit(0);
-      });
+  let vencimientos = [
+    {
+      building: id_building[2],
+      supplier: id_supplier[4],
+      amount: 150,
+      expireDate: "2020-02-28"
+    },
+    {
+      building: id_building[1],
+      supplier: id_supplier[5],
+      amount: 50,
+      expireDate: "2020-01-31"
+    }
+  ];
+
+  User.deleteMany()
+    .then(() => {
+      return User.create(users);
+    })
+    .then(() => {
+      return Building.deleteMany();
+    })
+    .then(() => {
+      return Building.create(buildings);
+    })
+    .then(() => {
+      return Floor.deleteMany();
+    })
+    .then(() => {
+      return Floor.create(floors);
+    })
+    .then(() => {
+      return Notification.deleteMany();
+    })
+    .then(() => {
+      return Notification.create(notifications);
+    })
+    .then(() => {
+      return Supplier.deleteMany();
+    })
+    .then(() => {
+      return Supplier.create(suppliers);
+    })
+    .then(() => {
+      return Vencimiento.deleteMany();
+    })
+    .then(() => {
+      return Vencimiento.create(vencimientos);
+    })
+    .then(() => {
+      console.log("succesfully added all the data");
+      mongoose.connection.close();
+      process.exit(0);
+    });
 });

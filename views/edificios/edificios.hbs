@@ -102,7 +102,7 @@
           </div>
           <div class="col-sm-3">
             <div class="btn-group float-sm-right">
-              <button class="btn btn-success float-right">+ agregar edificio</button>
+              <button class="btn btn-success float-right" data-toggle="modal" data-target="#successmodal">+ agregar edificio</button>
             </div>
           </div>
         </div>
@@ -122,21 +122,21 @@
                         <table id="example" class="table table-bordered">
                           <thead>
                             <tr>
-                              <th>Address</th>
-                              <th>Year</th>
-                              <th>Floors</th>
-                              <th style="width: 10%; text-align:center">Edit</th>
-                              <th style="width: 10%; text-align:center">Delete</th>
+                              <th>Dirección</th>
+                              <th class="text-center">Pisos</th>
+                              <th class="text-center">Año</th>
+                              <th style="width: 10%; text-align:center">Editar</th>
+                              <th style="width: 10%; text-align:center">Eliminar</th>
                             </tr>
                           </thead>
                           <tbody>
                             {{#each building}}
                               <tr>
                                 <td><a href="/edificio/{{this._id}}">{{this.address}}</a></td>
-                                <td>{{this.year}}</td>
-                                <td>{{this.floors.length}}</td>
-                                <td><button class="btn btn-warning btn-sm button-building">Edit</button></td>
-                                <td><button class="btn btn-danger btn-sm button-building">Delete</button></td>
+                                <td class="text-center width-10">{{this.floors.length}}</td>
+                                <td class="text-center width-10">{{this.year}}</td>
+                                <td><button class="btn btn-warning btn-sm button-size-table">Edit</button></td>
+                                <td><button class="btn btn-danger btn-sm button-size-table">Delete</button></td>
                               </tr>
                             {{/each}}
                           </tbody>
@@ -153,6 +153,47 @@
 
       </div>
       <!-- End container-fluid-->
+
+      <!--Success  Modal -->
+      
+      <div class="modal fade" id="successmodal">
+        <div class="modal-dialog">
+          <div class="modal-content border-success">
+            <div class="modal-header bg-success">
+              <h5 class="modal-title text-white">Ingresar nuevo edificio</h5>
+              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/add/edificio" method="POST">
+                <div class="form-group">
+                  <label>Dirección</label>
+                  <input type="text" class="form-control" name="address" required>
+                </div>
+                <div class="form-group">
+                  <label>Cantidad de pisos</label>
+                  <input type="text" class="form-control" name="floors" required>
+                </div>
+                <div class="form-group">
+                  <label for="input-1">Fecha de inicio</label>
+                  <input type="date" class="form-control" id="input-1" name="startDate" required>
+                </div>
+                <div class="form-group">
+                  <label>Año de construcción</label>
+                  <input type="number" class="form-control" name="year" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-inverse-danger" data-dismiss="modal"><i class="fa fa-times"></i>
+                Cancelar</button>
+              <button class="btn btn-outline-success"><i class="fa fa-check-square-o"></i> Guardar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Modal -->
 
       <div class="overlay"></div>
 
