@@ -102,8 +102,10 @@
           </div>
           <div class="col-sm-3">
             <div class="btn-group float-sm-right">
+              {{#is req.user.type ‘boss’}}
               <a class="btn btn-success float-right" href="/empleado/add" data-toggle="modal"
                 data-target="#defaultsizemodal">+ agregar empleado</a>
+                {{/is}}
             </div>
           </div>
         </div>
@@ -127,8 +129,10 @@
                               <th>Rol</th>
                               <th>Teléfono</th>
                               <th>Email</th>
+                              {{#is req.user.type ‘boss’}}
                               <th style="width: 10%; text-align:center">Edit</th>
                               <th style="width: 10%; text-align:center">Delete</th>
+                              {{/is}}
                             </tr>
                           </thead>
                           <tbody>
@@ -139,9 +143,11 @@
                               <td>{{this.mobile}}</td>
 
                               <td>{{this.email}}</td>
+                              {{#is req.user.type ‘boss’}}
                               <td><button class="btn btn-warning btn-sm button-admin">Edit</button></td>
                               <td><a class="btn btn-danger btn-sm button-admin"
                                   href="/empleado/delete/{{this._id}}">Delete</a></td>
+                              {{/is}}
                             </tr>
                             {{/each}}
                           </tbody>
@@ -150,7 +156,7 @@
                     </div>
                   </div>
                 </div>
-              </div><!-- End Row-->+
+              </div><!-- End Row-->
 
             </div>
           </div>
@@ -205,7 +211,7 @@
           </div>
         </div>
       </div>
-    </div>>
+    </div>
     <!--End Modal -->
 
   </div>

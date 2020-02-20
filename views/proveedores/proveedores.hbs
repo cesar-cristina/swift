@@ -102,7 +102,9 @@
           </div>
           <div class="col-sm-3">
             <div class="btn-group float-sm-right">
+              {{#is req.user.role ‘admin’}}
               <button class="btn btn-success float-right" data-toggle="modal" data-target="#successmodal">+ agregar proveedor</button>
+              {{/is}}
             </div>
           </div>
         </div>
@@ -125,9 +127,10 @@
                               <th>Nombre</th>
                               <th>Servicio</th>
                               <th>Teléfono</th>
-                             
+                              {{#is req.user.type ‘boss’}}
                               <th style="width: 10%; text-align:center">Edit</th>
                               <th style="width: 10%; text-align:center">Delete</th>
+                              {{/is}}
                             </tr>
                           </thead>
                           <tbody>
@@ -136,9 +139,10 @@
                                 <td><a href="/proveedor/{{this._id}}">{{this.name}}</a></td>
                                 <td>{{this.service}}</td>
                                 <td>{{this.mobile}}</td>
-                                
+                                {{#is req.user.type ‘boss’}}
                                 <td><a href="edit/proveedor/{{this._id}}" class="btn btn-warning btn-sm button-size-table">Edit</a></td>
-                                <td><a class="btn btn-danger btn-sm button-supplier" href="/proveedor/delete/{{this._id}}"" >Delete</a></td>
+                                <td><a class="btn btn-danger btn-sm button-supplier" href="/proveedor/delete/{{this._id}}">Delete</a></td>
+                                {{/is}}
                               </tr>
                             {{/each}}
                           </tbody>

@@ -102,7 +102,9 @@
           </div>
           <div class="col-sm-3">
             <div class="btn-group float-sm-right">
+              {{#is req.user.type ‘boss’}}
               <button class="btn btn-success float-right" data-toggle="modal" data-target="#successmodal">+ agregar edificio</button>
+              {{/is}}
             </div>
           </div>
         </div>
@@ -125,8 +127,10 @@
                               <th>Dirección</th>
                               <th class="text-center">Pisos</th>
                               <th class="text-center">Año</th>
+                              {{#is req.user.type ‘boss’}}
                               <th style="width: 10%; text-align:center">Editar</th>
                               <th style="width: 10%; text-align:center">Eliminar</th>
+                              {{/is}}
                             </tr>
                           </thead>
                           <tbody>
@@ -135,8 +139,10 @@
                                 <td><a href="/edificio/{{this._id}}">{{this.address}}</a></td>
                                 <td class="text-center width-10">{{this.floors.length}}</td>
                                 <td class="text-center width-10">{{this.year}}</td>
+                                {{#is req.user.type ‘boss’}}
                                 <td><button class="btn btn-warning btn-sm button-size-table">Edit</button></td>
                                 <td><button class="btn btn-danger btn-sm button-size-table">Delete</button></td>
+                                {{/is}}
                               </tr>
                             {{/each}}
                           </tbody>

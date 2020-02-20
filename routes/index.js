@@ -11,13 +11,36 @@ const Vencimiento = require("../models/Vencimiento");
 const moment = require("moment");
 const mongoose = require("mongoose");
 
+
+
+
+
+
+function checkTypes(type) {
+  return function(req, res, next) {
+    if (req.isAuthenticated() && req.user.type === type) {
+      return next();
+    } else {
+      res.redirect('/home')
+    }
+  }
+}
+
+function checkRole(role) {
+  return function(req, res, next) {
+    if (req.isAuthenticated() && req.user.role === role) {
+      return next();
+    } else {
+      res.redirect('/home')
+    }
+  }
+}
+
+
+
 /* GET home page */
 router.get("/", (req, res, next) => {
   res.render("index");
-});
-
-router.get("/auth", (req, res, next) => {
-  res.render("auth/prueba");
 });
 
 router.get("/empleados", (req, res, next) => {
@@ -243,7 +266,7 @@ router.get("/avisos", (req, res, next) => {
     });
 });
 
-router.post("/add/notification", (req, res, next) => {
+router.post("/add/notification",(req, res, next) => {
   Notification.create({
     building: req.body.building,
     subject: req.body.subject,
@@ -282,7 +305,7 @@ router.get("/shownotification/:id", (req, res, next) => {
     });
 });
 
-router.get("/edit/notification/:id", (req, res, next) => {
+router.get("/edit/notification/:id",(req, res, next) => {
   Notification.findById(req.params.id)
     .populate("building")
     .then(notification => {
@@ -290,7 +313,7 @@ router.get("/edit/notification/:id", (req, res, next) => {
     });
 });
 
-router.post("/edit/notification/:id", (req, res, next) => {
+router.post("/edit/notification/:id",(req, res, next) => {
   Notification.findByIdAndUpdate(
     req.body.id,
     {
@@ -363,7 +386,7 @@ router.get("/vencimientos", (req, res, next) => {
     });
 });
 
-router.post("/add/vencimiento", (req, res, next) => {
+router.post("/add/vencimiento",(req, res, next) => {
   Vencimiento.create({
     building: req.body.building,
     supplier: req.body.supplier,

@@ -13,6 +13,8 @@ const session = require("express-session");
 const passport = require("passport");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
+const Swag = require("swag");
+Swag.registerHelpers(hbs);
 
 mongoose
   .connect(`${process.env.DBR}`, {

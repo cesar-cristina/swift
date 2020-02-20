@@ -7,13 +7,6 @@ const router = express.Router();
 const User = require("../models/User");
 
 
-const checkBoss  = checkTypes('boss');
-const checkExpenses = checkTypes('expenses');
-const checkMaintenance  = checkTypes('maintenance');
-const checkOwner = checkTypes('owner');
-const checkTenant = checkTypes('tenant');
-const checkEmployee = checkTypes('employee');
-
 
 
 // Bcrypt to encrypt passwords
@@ -140,57 +133,53 @@ router.get("/login", (req, res, next) => {
 });
 
 
-router.post("/login", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
+// router.post("/login", passport.authenticate("local", {
+//   successReturnToOrRedirect: "/",
+//   failureRedirect: "/login",
+//   failureFlash: true,
+//   passReqToCallback: true
+// }));
+
+//   const username = req.body.username;
+//   const password = req.body.password;
+
+//   if (username === "" || password === "") {
+//     res.render("auth/login", {
+//       message: "Please enter both, username and password to sign up."
+//     });
+//     return;
+//   }
+
+//   User.findOne({ username })
+//   .then(user => {
+//     console.log(user)
+//       if (!user) {
+//         res.render("auth/login", {
+//           message: "The username doesn't exist."
+//         });
+//         return;
+//       }
+//       if (bcrypt.compareSync(password, user.password)) {
+//         // Save the login in the session!
+//         req.session.currentUser = user;
+//         res.redirect("/home");
+//       } else {
+//         res.render("auth/login", {
+//           message: "Incorrect password"
+//         });
+//       }
+//   })
+//   .catch(error => {
+//     next(error);
+//   })
 
 
-  if (username === "" || password === "") {
-    res.render("auth/login", {
-      message: "Please enter both, username and password to sign up."
-    });
-    return;
-  }
 
-  User.findOne({ username })
-  .then(user => {
-    console.log(user)
-      if (!user) {
-        res.render("auth/login", {
-          message: "The username doesn't exist."
-        });
-        return;
-      }
-      if (bcrypt.compareSync(password, user.password)) {
-        // Save the login in the session!
-        req.session.currentUser = user;
-        res.redirect("/home");
-      } else {
-        res.render("auth/login", {
-          message: "Incorrect password"
-        });
-      }
-  })
-  .catch(error => {
-    next(error);
-  })
- });
-
-
-function checkTypes(type) {
-  return function(req, res, next) {
-    if (req.isAuthenticated() && req.user.type === type) {
-      return next();
-    } else {
-      res.redirect('/login')
-    }
-  }
-}
 
 
 router.get("/home", (req, res) => {
   if (req.session.currentUser) {
-    Users.findById(req.session.currentUser).then((allUserData) => {
+    User.findById(req.session.currentUser).then((allUserData) => {
       allUserData.type = `${allUserData.type.toLowerCase()}`;
 
       let viewData = {
@@ -221,7 +210,7 @@ router.get("/home", (req, res) => {
         viewData.isTenant = true;
       }
 
-      res.render("private", viewData);
+      res.render("home", viewData);
     });
   } else {
     res.redirect("/login");

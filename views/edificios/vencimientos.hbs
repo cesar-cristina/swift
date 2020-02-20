@@ -102,8 +102,10 @@
           </div>
           <div class="col-sm-3">
             <div class="btn-group float-sm-right">
+              {{#is req.user.rol ‘admin’}}
               <button class="btn btn-success float-right" data-toggle="modal" data-target="#successmodal">+ agregar
                 vencimiento</button>
+                {{/is}}
             </div>
           </div>
         </div>
@@ -127,7 +129,9 @@
                               <th>Servicio</th>
                               <th>Monto</th>
                               <th>Vencimiento</th>
+                              {{#is req.user.rol ‘admin’}}
                               <th style="width: 10%; text-align:center">Editar</th>
+                              {{/is}}
                             </tr>
                           </thead>
                           <tbody>
@@ -137,7 +141,9 @@
                               <td>{{supplier.service}}</td>
                               <td>€ {{this.amount}}</td>
                               <td>{{this.formatedDate}}</td>
+                              {{#is req.user.rol ‘admin’}}
                               <td><a href="/edit/vencimiento/{{this._id}}" class="btn btn-warning btn-sm button-size-table">Edit</a></td>
+                              {{/is}}
                             </tr>
                             {{/each}}
                           </tbody>
@@ -196,15 +202,20 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">€</span>
                     </div>
+                    {{#is req.user.type ‘boss’}}
                     <input type="text" class="form-control" name="amount" placeholder="Ingrese el monto">
+                    {{/is}}
                   </div>
                 </div>
                 
             </div>
+
             <div class="modal-footer">
+              {{#is req.user.type ‘boss’}}
               <button type="button" class="btn btn-inverse-danger" data-dismiss="modal"><i class="fa fa-times"></i>
                 Cancelar</button>
               <button class="btn btn-outline-success"><i class="fa fa-check-square-o"></i> Guardar</button>
+              {{/is}}
               </form>
             </div>
           </div>
