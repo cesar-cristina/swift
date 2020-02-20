@@ -70,60 +70,70 @@ passport.deserializeUser((id, cb) => {
 });
 
 
-router.get('/private', ensureAuthenticated, (req, res) => {
-  res.render('private', {user: req.user});
+// router.get('/private', ensureAuthenticated, (req, res) => {
+//   res.render('private', {user: req.user});
+// });
+
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   } else {
+//     res.redirect('/login')
+//   }
+// }
+
+
+router.get("/singup", (req, res, next) => {
+  res.render("auth/singup");
 });
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect('/login')
+router.post("/singup", (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  if (username === "" || password === "") {
+    res.render("auth/singup", { message: "Indicate username and password" });
+    return;
   }
-}
+  const plainPassword1 = req.body.password;
+  const salt = bcrypt.genSaltSync(bcryptSalt);
+  const hashPass = bcrypt.hashSync(password, salt);
+
+  if (["boss", "expenses", "maintenance","employee","owner","tenant"].indexOf(req.body.type) === -1) {
+    res.render("auth/singup", { message: "specified role was not valid"});
+    return;
+  }
 
 
-router.get('/private', checkTypes('boss'), (req, res) => {
-  res.render('private', {user: req.user});
-});
-
-router.get('/private', checkTypes('expenses'), (req, res) => {
-  res.render('private', {user: req.user});
-});
-
-router.get('/private', checkTypes('maintenance'), (req, res) => {
-  res.render('private', {user: req.user});
-});
-
-router.get('/private', checkTypes('owner'), (req, res) => {
-  res.render('private', {user: req.user});
-});
-
-router.get('/private', checkTypes('tenant'), (req, res) => {
-  res.render('private', {user: req.user});
-});
-
-router.get('/private', checkTypes('employee'), (req, res) => {
-  res.render('private', {user: req.user});
-});
-
-
-
-function checkTypes(type) {
-  return function(req, res, next) {
-    if (req.isAuthenticated() && req.user.type === type) {
-      return next();
-    } else {
-      res.redirect('/login')
+  User.findOne({ username }, "username", (err, user) => {
+    if (user !== null) {
+      res.render("auth/singup", { message: "The username already exists" });
+      return;
     }
-  }
-}
+    else {
+      Users.create({ name: req.body.username, password: hash, type: req.body.type })
+        .then((userCreated) => {
+          res.json({ created: true, userCreated });
+        })
+        .catch(() => {
+          res.render("auth/singup",{ created: false });
+        });
+    }
 
 
-router.get("/", ensureLogin.ensureLoggedIn(), (req, res) => {
-  res.render("private", { user: req.user });
+    // const newUser = new User({
+    //   username,
+    //   password: hashPass
+    // });
+
+    // newUser.save()
+    // .then(() => {
+    //   res.redirect("/");
+    // })
+    // .catch(err => {
+    //   res.render(, { message: "Something went wrong" });
+    // })
+  });
 });
-
 
 router.get("/login", (req, res, next) => {
   res.render("auth/login");
@@ -132,7 +142,7 @@ router.get("/login", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
   const username = req.body.username;
-  const thePassword = req.body.password;
+  const password = req.body.password;
 
 
   if (username === "" || password === "") {
@@ -151,10 +161,10 @@ router.post("/login", (req, res, next) => {
         });
         return;
       }
-      if (bcrypt.compareSync(thePassword, user.password)) {
+      if (bcrypt.compareSync(password, user.password)) {
         // Save the login in the session!
         req.session.currentUser = user;
-        res.redirect("/");
+        res.redirect("/home");
       } else {
         res.render("auth/login", {
           message: "Incorrect password"
@@ -167,46 +177,56 @@ router.post("/login", (req, res, next) => {
  });
 
 
-router.get("/signup", (req, res, next) => {
-  res.render("auth/signup");
-});
-
-router.post("/signup", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  if (username === "" || password === "") {
-    res.render("auth/signup", { message: "Indicate username and password" });
-    return;
-  }
-
-  User.findOne({ username }, "username", (err, user) => {
-    if (user !== null) {
-      res.render("auth/signup", { message: "The username already exists" });
-      return;
+function checkTypes(type) {
+  return function(req, res, next) {
+    if (req.isAuthenticated() && req.user.type === type) {
+      return next();
+    } else {
+      res.redirect('/login')
     }
+  }
+}
 
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(password, salt);
 
-    const newUser = new User({
-      username,
-      password: hashPass
+router.get("/home", (req, res) => {
+  if (req.session.currentUser) {
+    Users.findById(req.session.currentUser).then((allUserData) => {
+      allUserData.type = `${allUserData.type.toLowerCase()}`;
+
+      let viewData = {
+        user: allUserData
+      };
+
+      if (allUserData.type === "boss") {
+        viewData.isBoss = true;
+      }
+
+      if (allUserData.type === "expenses") {
+        viewData.isExpenses = true;
+      }
+
+      if (allUserData.type === "maintenance") {
+        viewData.isMaintenance = true;
+      }
+
+      if (allUserData.type === "employee") {
+        viewData.isEmployee = true;
+      }
+
+      if (allUserData.type === "owner") {
+        viewData.isOwner = true;
+      }
+
+      if (allUserData.type === "tenant") {
+        viewData.isTenant = true;
+      }
+
+      res.render("private", viewData);
     });
-
-    newUser.save()
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch(err => {
-      res.render("auth/signup", { message: "Something went wrong" });
-    })
-  });
+  } else {
+    res.redirect("/login");
+  }
 });
-
-// router.get("/logout", (req, res) => {
-//   req.logout();
-//   res.redirect("/");
-// });
 
 router.get("/logout", (req, res, next) => {
   req.session.destroy((err) => {
@@ -214,5 +234,15 @@ router.get("/logout", (req, res, next) => {
     res.redirect("/login");
   });
 });
+
+router.get("/remember", (req, res) => {
+  res.render("remember");
+});
+
+router.post("/remember-password", (req, res) => {
+  console.log(`find in mongo the user with email ${req.body.email}`);
+});
+
+
 
 module.exports = router;

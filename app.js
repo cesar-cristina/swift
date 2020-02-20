@@ -92,7 +92,7 @@ const index = require("./routes/index");
 app.use("/", index);
 
 const authRoutes = require("./routes/auth");
-app.use("/auth", authRoutes);
+app.use("/", authRoutes);
 
 // const admin = require("./routes/admin/index");
 // app.use("/admin", admin);
