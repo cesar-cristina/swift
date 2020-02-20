@@ -124,9 +124,8 @@
                         <table id="example" class="table table-bordered">
                           <thead>
                             <tr>
-                              <th >Nombre</th>
-                              <th class="width-th">Servicio</th>
-                              <th>Dirección</th>
+                              <th>Nombre</th>
+                              <th>Rol</th>
                               <th>Teléfono</th>
                               <th>Móvil</th>
                               <th>Email</th>
@@ -137,14 +136,8 @@
                           <tbody>
                         
                             <tr>
-                              <td >{{user.name}}</td>
-                              <td class="width-name">{{user.service}}</td>
-                              <td>{{user.address}}</td>
-                              {{!-- {{#if this.rent}}
-                                <td><input type="checkbox" name="vehicle2" value="Car" checked disabled></td>
-                              {{else}}
-                                <td><input type="checkbox" name="vehicle2" value="Car" disabled></td>
-                              {{/if}} --}}
+                              <td>{{user.name}}</td>
+                              <td>{{user.type}}</td>
                               <td>{{user.telephone}}</td>
                               <td>{{user.mobile}}</td>
                               <td>{{user.email}}</td>

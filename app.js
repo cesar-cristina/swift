@@ -85,6 +85,9 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+// app.use('/', require('./routes/auth-routes'));
+// app.use('/', require('./routes/site-routes'));
+
 const index = require("./routes/index");
 app.use("/", index);
 

@@ -1277,6 +1277,7 @@ dbConnect(() => {
       password: "portero",
       name: faker.name.findName(),
       role: "employee",
+      type: "employee",
       building: id_building[0],
       salary: [
         {

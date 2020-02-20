@@ -314,7 +314,7 @@
     }
 
     function loadNotification(id, cb) {
-      fetch(`http://localhost:3000/shownotification/${id}`).then(json => json.json()).then(json => cb(json))
+      fetch(`http://localhost:4000/shownotification/${id}`).then(json => json.json()).then(json => cb(json))
     }
 
     function newNotification() {

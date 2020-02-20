@@ -37,9 +37,9 @@
   <!-- Start wrapper-->
   <div id="wrapper">
 
-<!--Start sidebar-wrapper-->
-  {{> menu}}
-<!--End sidebar-wrapper-->
+    <!--Start sidebar-wrapper-->
+    {{> menu}}
+    <!--End sidebar-wrapper-->
 
     <!--Start topbar header-->
     <header class="topbar-nav">
@@ -102,16 +102,17 @@
           </div>
           <div class="col-sm-3">
             <div class="btn-group float-sm-right">
-              <button class="btn btn-success float-right">+ agregar empleado</button>
+              <a class="btn btn-success float-right" href="/empleado/add" data-toggle="modal"
+                data-target="#defaultsizemodal">+ agregar empleado</a>
             </div>
           </div>
         </div>
         <!-- End Breadcrumb-->
-        
+
         <div class="row">
           <div class="col-lg-12">
             <div>
-             <!-- aca va la info -->
+              <!-- aca va la info -->
 
               <div class="row">
                 <div class="col-lg-12">
@@ -126,22 +127,22 @@
                               <th>Rol</th>
                               <th>Teléfono</th>
                               <th>Email</th>
-
                               <th style="width: 10%; text-align:center">Edit</th>
                               <th style="width: 10%; text-align:center">Delete</th>
                             </tr>
                           </thead>
                           <tbody>
                             {{#each user}}
-                              <tr>
-                                <td><a href="/empleado/{{this._id}}">{{this.name}}</a></td>
-                                <td>{{this.type}}</td>
-                                <td>{{this.mobile}}</td>
-                                <td>{{this.email}}</td>
+                            <tr>
+                              <td><a href="/empleado/{{this._id}}">{{this.name}}</a></td>
+                              <td>{{this.type}}</td>
+                              <td>{{this.mobile}}</td>
 
-                                <td><button class="btn btn-warning btn-sm button-admin">Edit</button></td>
-                                <td><button class="btn btn-danger btn-sm button-admin">Delete</button></td>
-                              </tr>
+                              <td>{{this.email}}</td>
+                              <td><button class="btn btn-warning btn-sm button-admin">Edit</button></td>
+                              <td><a class="btn btn-danger btn-sm button-admin"
+                                  href="/empleado/delete/{{this._id}}">Delete</a></td>
+                            </tr>
                             {{/each}}
                           </tbody>
                         </table>
@@ -149,7 +150,7 @@
                     </div>
                   </div>
                 </div>
-              </div><!-- End Row-->
+              </div><!-- End Row-->+
 
             </div>
           </div>
@@ -160,15 +161,62 @@
 
       <div class="overlay"></div>
 
-    </div>
-    <!--End content-wrapper-->
-    <!--Start Back To Top Button-->
-    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-    <!--End Back To Top Button-->
+      <!--Primary Modal -->
+      <!-- Modal -->
+      <div class="modal fade" id="defaultsizemodal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Agregar nuevo empleado</h5>
 
-    <!--Start footer-->
-      {{> footer}}
-    <!--End footer-->
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action="/empleado/add" method="POST">
+              <label for="username">Nombre</label>
+              <input type="text" name="username">
+
+              <label for="password">Password</label>
+              <input type="password" name="password">
+
+              <label for="role">Role</label>
+              <input type="text" name="role">
+
+              <label for="mobile">Móvil</label>
+              <input type="number" name="mobile">
+
+              <label for="telephone">Teléfono</label>
+              <input type="number" name="telephone">
+
+              <label for="email">Email</label>
+              <input type="text" name="email">
+
+
+              {{#if message}}
+              <div class="error-message">{{ message }}</div>
+              {{/if}}
+            </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-inverse-primary" data-dismiss="modal"><i class="fa fa-times"></i>
+                Close</button>
+              <button type="button" class="btn btn-primary"><i class="fa fa-check-square-o" href="/empleado/add"></i> Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>>
+    <!--End Modal -->
+
+  </div>
+  <!--End content-wrapper-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+
+  <!--Start footer-->
+  {{> footer}}
+  <!--End footer-->
 
   </div>
   <!--End wrapper-->
