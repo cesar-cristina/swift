@@ -7,6 +7,7 @@ const Notification = require("../models/Notification");
 const nodemailer = require("nodemailer");
 const axios = require("axios");
 const Supplier = require("../models/Supplier");
+const mongoose = require('mongoose');
 
 /* GET home page */
 router.get("/", (req, res, next) => {
@@ -18,7 +19,7 @@ router.get("/auth", (req, res, next) => {
 });
 
 router.get("/empleados", (req, res, next) => {
-  User.find({where:{role: 'admin'}})
+  User.find({"role":"admin"})
     .then(user => {
       res.render("empleados/empleados", {user});
     })
@@ -32,6 +33,22 @@ router.get("/empleado/:id", (req, res, next) => {
       res.render("empleados/empleado", {user});
     })
     .catch(err => console.log("error", err));
+});
+
+router.post("/empleado/add", (req, res, next) => {
+  User.create()
+  .then(user => {
+    res.render("empleados/empleados", {user});
+  })
+  .catch(err => console.log("error", err));
+});
+
+router.get("/empleado/delete/:id", (req, res) => {
+  console.log("holaaa")
+  User.findByIdAndDelete(req.params.id)
+  .then(() => {
+    res.redirect("/empleados")
+  });
 });
 
 router.get("/proveedores", (req, res, next) => {
@@ -69,6 +86,18 @@ router.post("/edit/proveedor/:id/", (req, res, next) => {
   });
 });
 
+router.get("/proveedor/delete/:id", (req, res, next) => {
+  Supplier.findByIdAndDelete(req.params.id)
+  .then(() => {
+    res.redirect("/proveedores")
+  });
+});
+
+
+// router.get("/informes", (req, res, next) => {
+
+// })
+
 
 router.get("/edificios", (req, res, next) => {
   Building.find()
@@ -96,6 +125,7 @@ router.get("/edificio/:id", (req, res, next) => {
     .catch(err => console.log("error", err));
 });
 
+
 router.get("/piso/:id", (req, res, next) => {
   Floor.findById(req.params.id)
     .then(floor => {
@@ -103,6 +133,8 @@ router.get("/piso/:id", (req, res, next) => {
     })
     .catch(err => console.log("error", err));
 });
+
+
 
 router.get("/edit/user/:id", (req, res, next) => {
   User.findById(req.params.id)
@@ -196,6 +228,7 @@ router.post("/edit/notification/:id", (req, res, next) => {
     res.redirect("/avisos");
   });
 });
+
 
 router.get("/building/:id", (req, res, next) => {
   Building.findById(req.params.id)

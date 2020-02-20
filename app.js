@@ -15,7 +15,7 @@ const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 
 mongoose
-  .connect(`${process.env.DBL}`, {
+  .connect(`${process.env.DBR}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -84,6 +84,9 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+// app.use('/', require('./routes/auth-routes'));
+// app.use('/', require('./routes/site-routes'));
 
 const index = require("./routes/index");
 app.use("/", index);

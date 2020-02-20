@@ -6,7 +6,7 @@ require("dotenv").config();
 
 function dbConnect(cb) {
   mongoose
-    .connect(`${process.env.DBL}`, {
+    .connect(`${process.env.DBR}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
@@ -1271,6 +1271,7 @@ dbConnect(() => {
       password: "portero",
       name: faker.name.findName(),
       role: "employee",
+      type: "employee",
       building: id_building[0],
       salary: [
         {
@@ -3048,7 +3049,7 @@ dbConnect(() => {
       telephone: 91321781,
       mobile: 614789520,
       email: 'nationallightcompany@gmail.com',
-      service: 'light'
+      service: 'luz'
     },
     { username: 'gassupplier',
       name: 'grisuGasCompany',
@@ -3064,7 +3065,7 @@ dbConnect(() => {
       telephone: 91989693,
       mobile: 621454649,
       email: 'orinoccocompany@gmail.com',
-      service: 'water'
+      service: 'agua'
     },
   ]
 

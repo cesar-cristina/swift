@@ -7,6 +7,15 @@ const router = express.Router();
 const User = require("../models/User");
 
 
+const checkBoss  = checkTypes('boss');
+const checkExpenses = checkTypes('expenses');
+const checkMaintenance  = checkTypes('maintenance');
+const checkOwner = checkTypes('owner');
+const checkTenant = checkTypes('tenant');
+const checkEmployee = checkTypes('employee');
+
+
+
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
@@ -61,6 +70,56 @@ passport.deserializeUser((id, cb) => {
 });
 
 
+router.get('/private', ensureAuthenticated, (req, res) => {
+  res.render('private', {user: req.user});
+});
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect('/login')
+  }
+}
+
+
+router.get('/private', checkTypes('boss'), (req, res) => {
+  res.render('private', {user: req.user});
+});
+
+router.get('/private', checkTypes('expenses'), (req, res) => {
+  res.render('private', {user: req.user});
+});
+
+router.get('/private', checkTypes('maintenance'), (req, res) => {
+  res.render('private', {user: req.user});
+});
+
+router.get('/private', checkTypes('owner'), (req, res) => {
+  res.render('private', {user: req.user});
+});
+
+router.get('/private', checkTypes('tenant'), (req, res) => {
+  res.render('private', {user: req.user});
+});
+
+router.get('/private', checkTypes('employee'), (req, res) => {
+  res.render('private', {user: req.user});
+});
+
+
+
+function checkTypes(type) {
+  return function(req, res, next) {
+    if (req.isAuthenticated() && req.user.type === type) {
+      return next();
+    } else {
+      res.redirect('/login')
+    }
+  }
+}
+
+
 router.get("/", ensureLogin.ensureLoggedIn(), (req, res) => {
   res.render("private", { user: req.user });
 });
@@ -73,11 +132,10 @@ router.get("/login", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
   const username = req.body.username;
-  console.log(username)
   const thePassword = req.body.password;
 
 
-  if (username === "" || thePassword === "") {
+  if (username === "" || password === "") {
     res.render("auth/login", {
       message: "Please enter both, username and password to sign up."
     });
@@ -145,9 +203,16 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-router.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
+// router.get("/logout", (req, res) => {
+//   req.logout();
+//   res.redirect("/");
+// });
+
+router.get("/logout", (req, res, next) => {
+  req.session.destroy((err) => {
+    // cannot access session here
+    res.redirect("/login");
+  });
 });
 
 module.exports = router;
