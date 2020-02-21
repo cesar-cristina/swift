@@ -1277,7 +1277,7 @@ dbConnect(() => {
       password: "portero",
       name: faker.name.findName(),
       role: "employee",
-      type: "employee",
+      type: "portero",
       building: id_building[0],
       salary: [
         {
@@ -1597,6 +1597,7 @@ dbConnect(() => {
       email: "lucianosanchez@gmail.com",
       role: "user",
       type: "owner",
+      building: id_building[1],
       imgName: "",
       imgPath: faker.image.avatar()
     },

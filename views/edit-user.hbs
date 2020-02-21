@@ -119,24 +119,38 @@
                       <hr>
                       <div>
                         <form action="/edit/user/{{this._id}}" method="POST">
-                        <input type="hidden" value="{{this._id}}">
+                        <input type="hidden" name="id_building" value="{{this.floor.building._id}}">
                           <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputPassword4">Email</label>
-                              <input type="email" class="form-control" name="email" value="{{this.email}}">
+                              <label>Dueño</label>
+                              <input type="text" class="form-control" name="name" value="{{this.name}}">
                             </div>
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">Piso</label>
-                              <input type="text" class="form-control" name="name" value="{{this.floor.name}}">
+                              <label>Email</label>
+                              <input type="email" class="form-control" name="email" value="{{this.email}}">
                             </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">Teléfono</label>
-                              <input type="text" class="form-control" name="telephone" value="{{this.telephone}}">
+                              <label>Usuario</label>
+                              <input type="text" class="form-control" name="username" value="{{this.username}}">
                             </div>
                             <div class="form-group col-md-6">
-                              <label for="inputPassword4">Mobil</label>
+                              <label>Contraseña</label>
+                              <input type="password" class="form-control" name="password" placeholder="Blanqueo de contraseña">
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-4">
+                              <label>Piso</label>
+                              <input type="text" class="form-control" name="floorname" value="{{this.floor.name}}">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Teléfono</label>
+                              <input type="text" class="form-control" name="telephone" value="{{this.telephone}}">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Movil</label>
                               <input type="text" class="form-control" name="mobile" value="{{this.mobile}}">
                             </div>
                           </div>

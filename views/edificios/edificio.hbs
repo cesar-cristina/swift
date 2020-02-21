@@ -79,7 +79,7 @@
               <li class="dropdown-divider"></li>
               <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
               <li class="dropdown-divider"></li>
-              <li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li>
+              <li class="dropdown-item"><a href="/logout"><i class="icon-power mr-2"></i> Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -116,7 +116,7 @@
                     {{!-- <div class="card-header"> </div> --}}
                     <div class="card-body">
                       <div class="table-responsive">
-                        <table id="example" class="table table-bordered">
+                        <table id="example" class="table table-bordered table-fontsize">
                           <thead>
                             <tr>
                               <th class="width-10">#</th>
@@ -124,8 +124,8 @@
                               <th class="width-25">Email</th>
                               <th class="width-15">Alq</th>
                               <th class="width-15">Movil</th>
-                              <th class="width-10">Editar</th>
-                              <th class="width-10">Eliminar</th>
+                              <th class="width-15">Teléfono</th>
+                              <th class="width-15">Editar</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -157,14 +157,24 @@
                               {{/if}}
 
                               {{#if this.owner.name}}
-                                <td>{{this.owner.mobile}}</td>
+                                <td class="width-15">{{this.owner.mobile}}</td>
                               {{else}}
                                 <td class="width-15 sin-datos"><div>Sin datos</div></td>
                               {{/if}}
-                              <td class="width-10"><a href="/edit/piso/{{this._id}}" class="btn btn-warning btn-sm button-size-table">Editar</a>
+
+                              {{#if this.owner.name}}
+                              <td class="width-15">{{this.owner.telephone}}</td>
+                              {{else}}
+                              <td class="width-15 sin-datos">
+                                <div>Sin datos</div>
                               </td>
-                              <td class="width-10"><a class="btn btn-danger btn-sm button-size-table" href="/edificio/delete/{{this._id}}" >Delete</a>
-                              </td>
+                              {{/if}}
+
+                              {{#if this.owner.name}}
+                              <td class="width-10"><button class="btn btn-sm btn-warning button-size-table disabled">Editar</button></td>
+                              {{else}}
+                              <td class="width-10"><a href="/edit/piso/{{this._id}}" class="btn btn-sm btn-info button-size-table">Añadir</a></td>
+                              {{/if}}
                             </tr>
                             </form>
                             {{/each}}

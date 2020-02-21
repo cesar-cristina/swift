@@ -24,7 +24,7 @@ body {
   padding: 0; }
 
 .table-fontsize {
-  font-size: 14px; }
+  font-size: 13px; }
 
 .sin-datos {
   color: #c8c8c8;
@@ -67,7 +67,8 @@ body {
   margin-top: -5px; }
 
 .profile {
-  border-radius: 50%; }
+  border-radius: 50%;
+  width: 100px; }
 
 .header-profile {
   text-align: center; }
@@ -77,5 +78,8 @@ body {
 
 .header-profile h5 {
   font-size: 22px; }
+
+.footer {
+  bottom: 0; }
 
 /*# sourceMappingURL=style.css.map */

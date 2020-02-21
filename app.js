@@ -13,6 +13,8 @@ const session = require("express-session");
 const passport = require("passport");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
+const Swag = require("swag");
+Swag.registerHelpers(hbs);
 
 mongoose
   .connect(`${process.env.DBR}`, {
@@ -91,8 +93,8 @@ app.use(passport.session());
 const index = require("./routes/index");
 app.use("/", index);
 
-const authRoutes = require("./routes/auth");
-app.use("/auth", authRoutes);
+// const authRoutes = require("./routes/auth");
+// app.use("/", authRoutes);
 
 // const admin = require("./routes/admin/index");
 // app.use("/admin", admin);

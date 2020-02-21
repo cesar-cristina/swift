@@ -10,11 +10,79 @@ const Supplier = require("../models/Supplier");
 const Vencimiento = require("../models/Vencimiento");
 const moment = require("moment");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const bcryptSalt = 10;
+const saltRounds = 10;
+const session = require("express-session");
+
+const passport = require("passport");
+require("../passport/index.js");
 
 /* GET home page */
-router.get("/", (req, res, next) => {
-  res.render("index");
+router.get("/home", (req, res, next) => {
+  // res.json(req.user)
+  let user = req.user;
+
+  if (user.type === "owner") {
+    User.findById(user._id)
+      .populate({
+        path: "floor",
+        populate: {
+          path: "owner",
+          model: "User"
+        }
+      })
+      .populate({
+        path: "floor",
+        populate: {
+          path: "_id"
+        }
+      })
+      .populate({
+        path: "floor",
+        populate: {
+          path: "building"
+        }
+      })
+      .populate({
+        path: "floor",
+        populate: {
+          path: "tenant"
+        }
+      })
+      .then(user => {
+        // res.json(user);
+        res.render("owner/home", { user });
+      });
+  }
+
+  if (user.role === "admin") {
+    res.render("index", { user });
+  }
 });
+
+router.get("/", (req, res, next) => {
+  res.render("auth/login");
+});
+
+router.get("/login", (req, res, next) => {
+  res.render("auth/login");
+});
+
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successReturnToOrRedirect: "/home",
+    failureRedirect: "/login",
+    failureFlash: true,
+    passReqToCallback: true
+  })
+);
+
+// router.get("/home", (req, res, next) => {
+//   console.log(req.user);
+//   res.render("index");
+// });
 
 router.get("/auth", (req, res, next) => {
   res.render("auth/prueba");
@@ -39,17 +107,16 @@ router.get("/empleado/:id", (req, res, next) => {
 
 router.post("/empleado/add", (req, res, next) => {
   User.create()
-  .then(user => {
-    res.render("empleados/empleados", {user});
-  })
-  .catch(err => console.log("error", err));
+    .then(user => {
+      res.render("empleados/empleados", { user });
+    })
+    .catch(err => console.log("error", err));
 });
 
 router.get("/empleado/delete/:id", (req, res) => {
-  console.log("holaaa")
-  User.findByIdAndDelete(req.params.id)
-  .then(() => {
-    res.redirect("/empleados")
+  console.log("holaaa");
+  User.findByIdAndDelete(req.params.id).then(() => {
+    res.redirect("/empleados");
   });
 });
 
@@ -106,17 +173,10 @@ router.post("/edit/proveedor/:id/", (req, res, next) => {
 });
 
 router.get("/proveedor/delete/:id", (req, res, next) => {
-  Supplier.findByIdAndDelete(req.params.id)
-  .then(() => {
-    res.redirect("/proveedores")
+  Supplier.findByIdAndDelete(req.params.id).then(() => {
+    res.redirect("/proveedores");
   });
 });
-
-
-// router.get("/informes", (req, res, next) => {
-
-// })
-
 
 router.get("/edificios", (req, res, next) => {
   Building.find()
@@ -128,6 +188,8 @@ router.get("/edificios", (req, res, next) => {
 });
 
 router.post("/add/edificio", (req, res, next) => {
+  let id_building = new mongoose.mongo.ObjectId();
+
   let id_floors = [];
 
   for (let i = 0; i < req.body.floors; i++) {
@@ -135,6 +197,7 @@ router.post("/add/edificio", (req, res, next) => {
   }
 
   Building.create({
+    _id: id_building,
     address: req.body.address,
     floors: id_floors,
     startDate: req.body.startDate,
@@ -143,7 +206,8 @@ router.post("/add/edificio", (req, res, next) => {
     .then(() => {
       for (let i = 0; i < id_floors.length; i++) {
         Floor.create({
-          _id: id_floors[i]
+          _id: id_floors[i],
+          building: id_building
         });
       }
     })
@@ -169,7 +233,6 @@ router.get("/edificio/:id", (req, res, next) => {
     .catch(err => console.log("error", err));
 });
 
-
 router.get("/piso/:id", (req, res, next) => {
   Floor.findById(req.params.id)
     .then(floor => {
@@ -180,9 +243,60 @@ router.get("/piso/:id", (req, res, next) => {
 
 router.get("/edit/piso/:id", (req, res, next) => {
   Floor.findById(req.params.id)
+    .populate("building")
     .then(piso => {
-      // res.json(user);
+      // res.json(piso);
       res.render("edit-piso", piso);
+    })
+    .catch(err => console.log("error", err));
+});
+
+router.post("/add/owner", (req, res, next) => {
+  let id_owner = new mongoose.mongo.ObjectId();
+
+  User.create({
+    _id: id_owner,
+    username: req.body.username,
+    password: bcrypt.hashSync(
+      req.body.password,
+      bcrypt.genSaltSync(saltRounds)
+    ),
+    name: req.body.name,
+    email: req.body.email,
+    floor: req.body.id_floor,
+    telephone: req.body.telephone,
+    mobile: req.body.mobile,
+    imgPath: "/images/user.jpg",
+    role: "user",
+    type: "owner"
+  })
+    .then(() => {
+      return Floor.findByIdAndUpdate(
+        req.body.id_floor,
+        {
+          owner: id_owner,
+          name: req.body.namefloor
+        },
+        { new: true }
+      );
+    })
+    .then(() => {
+      let transporter = nodemailer.createTransport({
+        service: "Gmail",
+        auth: {
+          user: `${process.env.MAILFROM}`,
+          pass: `${process.env.PSWMAIL}`
+        }
+      });
+
+      transporter.sendMail({
+        from: "<ironhacker2020@gmail.com>",
+        to: `${req.body.email}, cesarvalleiva@gmail.com`,
+        subject: `Swift te da la bienvenida!`,
+        text: `Hola ${req.body.name}, tu usuario ya está creado para entrar en la web: https://swiftadmin.herokuapp.com/login`
+      });
+
+      res.redirect(`/edificio/${req.body.id_building}`);
     })
     .catch(err => console.log("error", err));
 });
@@ -217,30 +331,50 @@ router.get("/edit/user/:id", (req, res, next) => {
 
 router.post("/edit/user/:id/", (req, res, next) => {
   User.findByIdAndUpdate(
-    req.body.id,
+    req.params.id,
     {
-      email: req.body.email,
       name: req.body.name,
+      email: req.body.email,
+      username: req.body.username,
+      password: req.body.password,
       telephone: req.body.telephone,
       mobile: req.body.mobile
     },
     { new: true }
   ).then(() => {
-    res.redirect("/edificios");
+    res.redirect(`/edificio/${req.body.id_building}`);
   });
 });
 
 router.get("/avisos", (req, res, next) => {
-  Notification.find()
-    .populate("building")
-    .then(notification => {
-      Building.find().then(buildings => {
-        res.render("edificios/avisos", {
-          notification: notification,
-          buildings: buildings
+  let user = req.user;
+
+  if (user.type === "owner") {
+    User.findById(user._id).then(user => {
+      Notification.find({ building: user.building }).then(notifications => {
+        // res.json(notifications);
+        res.render("owner/avisos", {
+          notifications: notifications,
+          user: user
         });
       });
     });
+  }
+
+  if (user.role === "admin") {
+    Notification.find()
+      .populate("building")
+      .then(notifications => {
+        // res.json(notifications)
+        Building.find().then(buildings => {
+          res.render("edificios/avisos", {
+            user: user,
+            notification: notifications,
+            buildings: buildings
+          });
+        });
+      });
+  }
 });
 
 router.post("/add/notification", (req, res, next) => {
@@ -257,8 +391,8 @@ router.post("/add/notification", (req, res, next) => {
       let transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
-          user: "ironhacker2020@gmail.com",
-          pass: "ironhack"
+          user: `${process.env.MAILFROM}`,
+          pass: `${process.env.PSWMAIL}`
         }
       });
 
@@ -302,7 +436,6 @@ router.post("/edit/notification/:id", (req, res, next) => {
     res.redirect("/avisos");
   });
 });
-
 
 router.get("/building/:id", (req, res, next) => {
   Building.findById(req.params.id)
@@ -387,7 +520,7 @@ router.get("/edit/vencimiento/:id", (req, res, next) => {
 });
 
 router.post("/edit/vencimiento/:id", (req, res, next) => {
-  moment(req.body.expireDate, 'YYYY-MM-DD').toDate();
+  moment(req.body.expireDate, "YYYY-MM-DD").toDate();
   Vencimiento.findByIdAndUpdate(
     req.params.id,
     {
@@ -398,6 +531,52 @@ router.post("/edit/vencimiento/:id", (req, res, next) => {
   ).then(vencimiento => {
     console.log(req.body.amount);
     res.redirect("/vencimientos");
+  });
+});
+
+router.get("/miedificio", (req, res, next) => {
+  // res.json(req.user)
+  let user = req.user;
+
+  if (user.type === "owner") {
+    User.findById(user._id)
+      .populate({
+        path: "floor",
+        populate: {
+          path: "owner"
+        }
+      })
+      .then(user => {
+        Building.findById(user.floor.building._id)
+          .populate("floors")
+          .populate({
+            path: "floors",
+            populate: {
+              path: "owner"
+            }
+          })
+          .then(building => {
+            // res.json(building);
+            // res.json(user.floor.building._id);
+            res.render("owner/miedificio", { user: user, building: building });
+          });
+      });
+  }
+});
+
+router.get("/logout", (req, res, next) => {
+  req.session.destroy(err => {
+    // cannot access session here
+    res.redirect("/login");
+  });
+});
+
+router.post("/add/place/:id", (req, res, next) => {
+  Building.findByIdAndUpdate(req.params.id, {
+    $push: { placesOfInterest: "cesar" }
+  }).then(building => {
+   
+    res.redirect("/home");
   });
 });
 

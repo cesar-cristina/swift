@@ -1,6 +1,333 @@
-<div id="container">
-  <a href="/signup">Sign up</a>
-  <a href="/login">Login</a>
-  <a href="/secret">Protected page (requires authentication!)</a>
-  <a href="/logout">Logout</a>
-</div>
+{{!-- 
+{{#if isTenant}}
+  Soy tenant
+{{/if}}
+{{#if isOwner}}
+  Soy owner
+{{/if}}
+{{#if isEmployee}}
+  Soy employee
+{{/if}}
+{{#if isBoss}}
+  Soy boss
+{{/if}}
+{{#if isExpenses}}
+  Soy expenses
+{{/if}}
+{{#if isMaintenance}}
+  Soy maintenance
+{{/if}} --}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Swift - Admin</title>
+  <!--favicon-->
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <!-- simplebar CSS-->
+  <link href="/stylesheets/template/simplebar.css" rel="stylesheet" />
+  <!-- Bootstrap core CSS-->
+  <link href="/stylesheets/template/bootstrap.min.css" rel="stylesheet" />
+  <!-- animate CSS-->
+  <link href="/stylesheets/template/animate.css" rel="stylesheet" type="text/css" />
+  <!-- Icons CSS-->
+  <link href="/stylesheets/template/icons.css" rel="stylesheet" type="text/css" />
+  <!-- Sidebar CSS-->
+  <link href="/stylesheets/template/sidebar-menu.css" rel="stylesheet" />
+  <!-- Custom Style-->
+  <link href="/stylesheets/template/app-style.css" rel="stylesheet" />
+  <!-- Style-->
+  <link href="/stylesheets/style.css" rel="stylesheet" />
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <!--Start topbar header-->
+  <header class="topbar-nav">
+    <nav class="navbar navbar-expand fixed-top bg-white">
+      <ul class="navbar-nav mr-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link toggle-menu" href="javascript:void();">
+            <i class="icon-menu menu-icon"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav align-items-center right-nav-link">
+        <li class="nav-item">
+          <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+            <span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle"
+                alt="user avatar"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li class="dropdown-item user-details">
+              <a href="javaScript:void();">
+                <div class="media">
+                  <div class="avatar"><img class="align-self-start mr-3" src="https://via.placeholder.com/110x110"
+                      alt="user avatar"></div>
+                  <div class="media-body">
+                    <h6 class="mt-2 user-title">Cesar Mccoy</h6>
+                    <p class="user-subtitle">mccoy@example.com</p>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li class="dropdown-item"><i class="icon-envelope mr-2"></i> Inbox</li>
+            <li class="dropdown-divider"></li>
+            <li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li>
+            <li class="dropdown-divider"></li>
+            <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
+            <li class="dropdown-divider"></li>
+            <li class="dropdown-item"><i class="icon-power mr-2"></i>
+              <a href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Start wrapper-->
+  <div id="wrapper">
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        {{#if isTenant}}
+        {{> menuTenant}}
+        {{/if}}
+        {{#if isOwner}}
+        {{> menuOwner}}
+
+        <!-- Breadcrumb-->
+        <div class="row pt-2 pb-2">
+          <div class="col-sm-9">
+            <h4 class="page-title">Edificios</h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href='/'>Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Edificios</li>
+            </ol>
+          </div>
+        </div>
+        <!-- End Breadcrumb-->
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              {{!-- <div class="card-header"> </div> --}}
+              <div class="card-body">
+                <!--Start Dashboard Content-->
+
+                <div class="row mt-3">
+                  <div class="col-12 col-lg-3 col-xl-4">
+                    <div class="card bg-success">
+                      <div class="card-body">
+                        <div class="media align-items-center">
+                          <div class="media-body">
+                            <p class="text-white">Comunidad:</p>
+                            <h4 class="text-white line-height-5">€ 85</h4>
+                          </div>
+                          <div class="w-circle-icon rounded-circle border border-white">
+                            <i class="fa fa-building text-white"></i></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-3 col-xl-4">
+                    <div class="card gradient-scooter">
+                      <div class="card-body">
+                        <div class="media align-items-center">
+                          <div class="media-body">
+                            <p class="text-white">Portero</p>
+                            <h4 class="text-white line-height-5">$750</h4>
+                          </div>
+                          <div class="w-circle-icon rounded-circle border border-white">
+                            <i class="fa fa-money text-white"></i></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-3 col-xl-4">
+                    <div class="card gradient-blooker">
+                      <div class="card-body">
+                        <div class="media align-items-center">
+                          <div class="media-body">
+                            <p class="text-white">New Users</p>
+                            <h4 class="text-white line-height-5">620</h4>
+                          </div>
+                          <div class="w-circle-icon rounded-circle border border-white">
+                            <i class="fa fa-users text-white"></i></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--End Row-->
+              </div>
+            </div>
+          </div>
+        </div><!-- End Row-->
+
+        <div class="row">
+          <div class="col-sm-9">
+            <div class="card">
+              <div class="card-header text-uppercase">Sitios de interes</div>
+              <div class="card-body">
+                <div id="map"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="card">
+              <div class="btn-group float-sm-right">
+                <button class="btn btn-success float-right" data-toggle="modal" data-target="#successmodal">+ agregar
+                  edificio</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End container-fluid-->
+
+      <!--Success  Modal -->
+      <div class="modal fade" id="successmodal">
+        <div class="modal-dialog">
+          <div class="modal-content border-success">
+            <div class="modal-header bg-success">
+              <h5 class="modal-title text-white">Ingresar nuevo edificio</h5>
+              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/add/edificio" method="POST">
+                <div class="form-group">
+                  <label>Dirección</label>
+                  <input type="text" class="form-control" name="address" required>
+                </div>
+                <div class="form-group">
+                  <label>Cantidad de pisos</label>
+                  <input type="text" class="form-control" name="floors" required>
+                </div>
+                <div class="form-group">
+                  <label for="input-1">Fecha de inicio</label>
+                  <input type="date" class="form-control" id="input-1" name="startDate" required>
+                </div>
+                <div class="form-group">
+                  <label>Año de construcción</label>
+                  <input type="number" class="form-control" name="year" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-inverse-danger" data-dismiss="modal"><i class="fa fa-times"></i>
+                Cancelar</button>
+              <button class="btn btn-outline-success"><i class="fa fa-check-square-o"></i> Guardar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Modal -->
+
+      {{/if}}
+      {{#if isEmployee}}
+      {{> menuEmployee}}
+      {{/if}}
+      {{#if isMaintenance}}
+      {{> menuMaintenance}}
+      {{/if}}
+      {{#if isExpenses}}
+      {{> menuExpenses}}
+      {{/if}}
+      {{#if isBoss}}
+      {{> menuBoss}}
+      {{/if}}
+    </div>
+  </div>
+  <!--End content-wrapper-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+  <!--Start footer-->
+  {{!-- {{> footer}} --}}
+  <!--End footer-->
+  </div>
+  <!--End wrapper-->
+
+  <script>
+
+   // let allPlaces = {{{allPlaces}}};
+
+    let map;
+
+    
+
+    function startMap() {
+      const ironhackMAD = {
+        lat: 40.3925046,
+        lng: -3.700465
+      };
+      const map = new google.maps.Map(
+        document.getElementById('map'),
+        {
+          zoom: 14,
+          center: ironhackMAD
+        }
+      )
+
+    /*
+      allPlaces.forEach(place => {
+        if (place.type === 'Coffee shop') {
+          new google.maps.Marker({
+            position: {
+              lat: place.location.lat,
+              lng: place.location.lng
+            },
+            map: map,
+            title: place.name,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            icon: coffee
+          });
+        } else {
+          new google.maps.Marker({
+            position: {
+              lat: place.location.lat,
+              lng: place.location.lng
+            },
+            map: map,
+            title: place.name,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            icon: book
+          });
+        }
+      }) */
+    }
+
+    startMap();
+  </script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdidhbZyn9dM7WoEP8DWcQwNRaGHdrdws&callback=startMap"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="/javascripts/template/jquery.min.js"></script>
+  <script src="/javascripts/template/popper.min.js"></script>
+  <script src="/javascripts/template/bootstrap.min.js"></script>
+  <script src="/javascripts/template/simplebar/js/simplebar.js"></script>
+  <script src="/javascripts/template/waves.js"></script>
+  <script src="/javascripts/template/sidebar-menu.js"></script>
+  <script src="/javascripts/template/app-script.js"></script>
+  <script src="/javascripts/script.js"></script>
+</body>
+</ht

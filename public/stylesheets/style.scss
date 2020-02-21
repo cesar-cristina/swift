@@ -31,7 +31,7 @@ body {
 }
 
 .table-fontsize {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .sin-datos {
@@ -87,6 +87,7 @@ body {
 
 .profile {
   border-radius: 50%;
+  width: 100px;
 }
 
 .header-profile {
@@ -99,4 +100,8 @@ body {
 
 .header-profile h5 {
   font-size: 22px;
+}
+
+.footer {
+  bottom: 0;
 }

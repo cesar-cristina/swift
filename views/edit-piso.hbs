@@ -75,7 +75,7 @@
               <li class="dropdown-divider"></li>
               <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
               <li class="dropdown-divider"></li>
-              <li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li>
+              <li class="dropdown-item"><a href="/logout"><i class="icon-power mr-2"></i> Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -96,7 +96,7 @@
               <li class="breadcrumb-item"><a href="javaScript:void();">Home</a></li>
               <li class="breadcrumb-item"><a href="/edificios">Edificios</a></li>
               <li class="breadcrumb-item"><a
-                  href="/edificio/{{this.floor.building._id}}">{{this.floor.building.address}}</a></li>
+                  href="/edificio/{{this.building._id}}">{{this.building.address}}</a></li>
               <li class="breadcrumb-item active" aria-current="page">{{this.name}}</li>
             </ol>
           </div>
@@ -113,32 +113,42 @@
                   <div class="card">
                     {{!-- <div class="card-header"> </div> --}}
                     <div class="card-body">
-                      <div class="card-body header-profile">
-                        <img src="{{this.imgPath}}" alt="{{this.name}}" class="profile">
-                        <h5 class="card-title">{{this.name}} - Dueño</h5>
-                      </div>
-                      <hr>
                       <div>
-                        <form action="/edit/user/{{this._id}}" method="POST">
-                          <input type="hidden" value="{{this._id}}">
+                        <form action="/add/owner" method="POST">
+                          <input type="hidden" name="id_building" value="{{this.building._id}}">
+                          <input type="hidden" name="id_floor" value="{{this._id}}">
                           <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputPassword4">Email</label>
-                              <input type="email" class="form-control" name="email" value="{{this.email}}">
+                              <label>Dueño</label>
+                              <input type="text" class="form-control" name="name" placeholder="Ingrese el nombre" required>
                             </div>
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">Piso</label>
-                              <input type="text" class="form-control" name="name" value="{{this.floor.name}}">
+                              <label>Email</label>
+                              <input type="email" class="form-control" name="email" placeholder="Ingrese correo electrónico" required>
                             </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">Teléfono</label>
-                              <input type="text" class="form-control" name="telephone" value="{{this.telephone}}">
+                              <label>Usuario</label>
+                              <input type="text" class="form-control" name="username" placeholder="Ingrese el usuario" required>
                             </div>
                             <div class="form-group col-md-6">
-                              <label for="inputPassword4">Mobil</label>
-                              <input type="text" class="form-control" name="mobile" value="{{this.mobile}}">
+                              <label>Contraseña</label>
+                              <input type="password" class="form-control" name="password" placeholder="Ingrese la contraseña" required>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-4">
+                              <label>Piso</label>
+                              <input type="text" class="form-control" name="namefloor" placeholder="Ingrese el piso">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Teléfono</label>
+                              <input type="text" class="form-control" name="telephone" placeholder="Ingrese el teléfono">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Movil</label>
+                              <input type="text" class="form-control" name="mobile" placeholder="Ingrese el movil" required>
                             </div>
                           </div>
                           <button class="btn btn-outline-warning btn-block">Guardar cambios</button>

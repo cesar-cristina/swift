@@ -1,35 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<h2>Login</h2>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Swift - Login</title>
+  <!--favicon-->
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <!-- simplebar CSS-->
+  <link href="/stylesheets/template/simplebar.css" rel="stylesheet" />
+  <!-- Bootstrap core CSS-->
+  <link href="/stylesheets/template/bootstrap.min.css" rel="stylesheet" />
+  <!-- animate CSS-->
+  <link href="/stylesheets/template/animate.css" rel="stylesheet" type="text/css" />
+  <!-- Custom Style-->
+  <link href="/stylesheets/template/app-style.css" rel="stylesheet" />
+  <!-- Style-->
+  <link href="/stylesheets/style.css" rel="stylesheet" />
+</head>
 
-<form action="/auth/login" method="POST" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="JonSnow">
+<body class="bg-dark">
+  <!-- Start wrapper-->
+  <div id="wrapper">
+    <div class="card card-authentication1 mx-auto my-5">
+      <div class="card-body">
+        <div class="card-content p-2">
+          <div class="text-center">
+            <img src="/images/logo-circular.png" alt="logo icon" class="logo-login">
+          </div>
+          <div class="card-title text-uppercase text-center py-3">swift</div>
+          <form action="/login" method="POST" id="form-container">
+            <div class="form-group">
+              <label>Usuario</label>
+              <div class="position-relative has-icon-right">
+                <input type="text" name="username" class="form-control input-shadow" placeholder="Ingrese su usuario">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword" class="">Password</label>
+              <div class="position-relative has-icon-right">
+                <input type="password" name="password" class="form-control input-shadow"
+                  placeholder="Ingrese su contraseña">
+              </div>
+            </div>
+            {{#if message }}
+            <div class="alert alert-icon-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <div class="alert-icon border-right border-danger">
+                <i class="fa fa-bell"></i>
+              </div>
+              <div class="alert-message">
+                <div class="error-message">{{ message }}</div>
+              </div>
+            </div>
+            {{/if}}
+            <button class="btn btn-info btn-block waves-effect waves-light">Log
+              In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+  </div>
+  <!--wrapper-->
+  <!-- Bootstrap core JavaScript-->
+  <script src="/javascripts/template/jquery.min.js"></script>
+  <script src="/javascripts/template/popper.min.js"></script>
+  <script src="/javascripts/template/bootstrap.min.js"></script>
+</body>
 
-  <br><br>
-
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-  <br>
-  {{#if message }}
-    <div class="error-message">{{ message }}</div>
-  {{/if}}
-
-  <label for="role">Role</label>
-
-  <select>
-  <option value=""selected>Role</option>
-  <option value="boss">Boss</option>
-  <option value="expenses">Expenses</option>
-  <option value="maitenance">Maitenance</option>
- 
-  </select>
-
-  <br><br>
-
-  <button>Login</button>
-
-  <p class="account-message">
-    Don't have an account yet?
-    <a href="/auth/signup">Signup</a>
-  </p>
-</form>
+</html>

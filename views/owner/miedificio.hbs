@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Swift - Admin</title>
+  <title>Swift - Mi edificio</title>
   <!--favicon-->
   <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
   <!-- simplebar CSS-->
@@ -32,7 +32,7 @@
   <div id="wrapper">
 
     <!--Start sidebar-wrapper-->
-    {{> menu}}
+    {{> menuOwner}}
     <!--End sidebar-wrapper-->
 
     <!--Start topbar header-->
@@ -52,23 +52,18 @@
           </li>
           <li class="nav-item">
             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
-              <span class="user-profile">
-                {{#if user.imgPath}}
-                  <img src="{{user.imgPath}}" class="img-circle" alt="user avatar">
-                {{else}}
-                  <img src="./images/user.jpg" class="img-circle" alt="user avatar">
-                {{/if}}
-              </span>
+              <span class="user-profile"><img src="{{user.imgPath}}" class="img-circle" alt="user avatar"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="dropdown-item user-details">
                 <a href="javaScript:void();">
                   <div class="media">
-                    <div class="avatar"><img class="align-self-start mr-3" src="./images/user.jpg" alt="user avatar">
+                    <div class="avatar"><img class="align-self-start mr-3" src="{{user.imgPath}}" alt="user avatar">
                     </div>
                     <div class="media-body">
                       <h6 class="mt-2 user-title">{{user.name}}</h6>
                       <p class="user-subtitle">{{user.email}}</p>
+
                     </div>
                   </div>
                 </a>
@@ -88,24 +83,59 @@
     </header>
     <!--End topbar header-->
 
-    <div class="clearfix"></div>
+
 
     <div class="content-wrapper">
       <div class="container-fluid">
+
+        <!-- Breadcrumb-->
+        <div class="row pt-2 pb-2">
+          <div class="col-sm-9">
+            <h4 class="page-title">Mi edificio</h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Mi Edificio</li>
+            </ol>
+          </div>
+        </div>
+        <!-- End Breadcrumb-->
+
         <div class="row">
           <div class="col-lg-12">
-            <div style="min-height:600px">
-              <!--Please remove the height before using this page-->
-
+            <div class="card">
+              {{!-- <div class="card-header"> </div> --}}
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table id="example" class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Piso</th>
+                        <th>Dueño</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each building}}
+                        {{#each floors}}
+                          <tr>
+                            <td>{{this.name}}</td>
+                            <td>{{this.owner.name}}</td>
+                            <td>{{this.owner.email}}</td>
+                          </tr>
+                        {{/each}}
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
       <!-- End container-fluid-->
 
-      <div class="overlay"></div>
-
+      
+      
     </div>
     <!--End content-wrapper-->
     <!--Start Back To Top Button-->
@@ -113,19 +143,14 @@
     <!--End Back To Top Button-->
 
     <!--Start footer-->
-    <footer class="footer">
-      <div class="container">
-        <div class="text-center">
-          Copyright © 2018 Rukada Admin
-        </div>
-      </div>
-    </footer>
+    {{> footer}}
     <!--End footer-->
 
   </div>
   <!--End wrapper-->
-
-
+  
+  <!-- simplebar js -->
+  <script src="/javascripts/template/simplebar/js/simplebar.js"></script>
   <script src="/javascripts/template/jquery.min.js"></script>
   <script src="/javascripts/template/popper.min.js"></script>
   <script src="/javascripts/template/bootstrap.min.js"></script>
@@ -133,6 +158,8 @@
   <script src="/javascripts/template/waves.js"></script>
   <script src="/javascripts/template/sidebar-menu.js"></script>
   <script src="/javascripts/template/app-script.js"></script>
+  <script src="/javascripts/template/Chart.js/Chart.min.js"></script>
+  <script src="/javascripts/template/Chart.js/chartjs-script.js"></script>
   <script src="/javascripts/script.js"></script>
 
 </body>

@@ -12,7 +12,7 @@ const userSchema = new Schema(
     role: { type: String, enum: ["user", "admin", "employee"] },
     type: {
       type: String,
-      enum: ["boss", "expenses", "maitenance", "owner", "tenant"]
+      enum: ["boss", "expenses", "maitenance", "owner", "tenant", "portero"]
     },
     floor: { type: Schema.Types.ObjectId, ref: "Floor" },
     imgName: String,
