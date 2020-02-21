@@ -54,6 +54,9 @@
 
         <ul class="navbar-nav align-items-center right-nav-link">
           <li class="nav-item">
+            {{user.name}}
+          </li>
+          <li class="nav-item">
             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
               <span class="user-profile">
                 {{#if user.imgPath}}
@@ -163,10 +166,10 @@
                       <div class="card-title text-success">Aviso {{this._id}}
                        
                         <div class="float-right">
-                          {{#is req.user.rol ‘admin’}}
+                          
                           <button onclick="editNotification()"
                             class="btn btn-outline-warning btn-sm button-edit">Editar</button></div>
-                          {{/is}}
+                          
                       </div>
                       <hr>
                       <form action="/add/notification" method="POST">
@@ -215,16 +218,16 @@
                           <textarea class="form-control textarea-avisos" rows="4" name="message"></textarea>
                         </div>
                         <div class="form-group">
-                          {{#is req.user.rol ‘admin’}}
+                          
                           <button class="btn btn-outline-primary btn-sm btn-block ">Guardar cambios</button>
-                          {{/is}}
+                          
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
 
-              {{#is req.user.rol ‘admin’}}
+              
                 <div class="col-lg-5 aviso-form">
                   <div class="card">
                     {{!-- <div class="card-header"> </div> --}}
@@ -255,7 +258,7 @@
                           <button class="btn btn-outline-success btn-sm btn-block ">enviar aviso</button>
                         </div>
                       </form>
-                      {{/is}}
+                      
                     </div>
                   </div>
                 </div>

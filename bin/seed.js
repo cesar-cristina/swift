@@ -1240,7 +1240,8 @@ dbConnect(() => {
       mobile: getMobile(),
       email: "dani.vicario@gmail.com",
       role: "admin",
-      type: "boss"
+      type: "boss",
+      imgPath: './images/danivicario.png'
     },
     {
       username: "frannaranjo",

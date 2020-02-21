@@ -50,19 +50,32 @@
 
         <ul class="navbar-nav align-items-center right-nav-link">
           <li class="nav-item">
+            {{user.name}}
+          </li>
+          <li class="nav-item">
             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
-              <span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle"
-                  alt="user avatar"></span>
+              <span class="user-profile">
+                {{#if user.imgPath}}
+                <img src="{{user.imgPath}}" class="img-circle" alt="user avatar">
+                {{else}}
+                <img src="./images/user.jpg" class="img-circle" alt="user avatar">
+                {{/if}}
+              </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="dropdown-item user-details">
                 <a href="javaScript:void();">
                   <div class="media">
-                    <div class="avatar"><img class="align-self-start mr-3" src="https://via.placeholder.com/110x110"
-                        alt="user avatar"></div>
+                    <div class="avatar">
+                      {{#if user.imgPath}}
+                      <img class="align-self-start mr-3" src="{{user.imgPath}}" alt="user avatar">
+                      {{else}}
+                      <img class="align-self-start mr-3" src="./images/user.jpg" alt="user avatar">
+                      {{/if}}
+                    </div>
                     <div class="media-body">
-                      <h6 class="mt-2 user-title">Katrina Mccoy</h6>
-                      <p class="user-subtitle">mccoy@example.com</p>
+                      <h6 class="mt-2 user-title">{{user.name}}</h6>
+                      <p class="user-subtitle">{{user.email}}</p>
                     </div>
                   </div>
                 </a>
@@ -74,8 +87,7 @@
               <li class="dropdown-divider"></li>
               <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
               <li class="dropdown-divider"></li>
-              <li class="dropdown-item"><i class="icon-power mr-2"></i>
-                <a href="/logout">Logout</a></li>
+              <li class="dropdown-item"><a href="/logout"><i class="icon-power mr-2"></i> Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -97,95 +109,102 @@
                   class="fa fa-facebook"></i></a>
               <a href="javascript:void()" class="btn-social btn-twitter waves-effect waves-light m-1"><i
                   class="fa fa-twitter"></i></a>
-             <a type="button" class="btn btn-info waves-effect waves-light m-1" href="https://www.boe.es/biblioteca_juridica/codigos/codigo.php?id=178&modo=2&nota=0&tab=2">Código de la Vivienda Comunidad de Madrid</a>
-             <a type="button" class="btn btn-success waves-effect waves-light m-1" href="https://www.madrid.es/portales/munimadrid/es/Inicio/Contacto/Direcciones-y-telefonos/Registro-de-la-Propiedad/?vgnextfmt=default&vgnextoid=6b4792355c51c010VgnVCM2000000c205a0aRCRD&vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD">Registro de propiedad de Madrid</a>
+              <a type="button" target="_blank" class="btn btn-info waves-effect waves-light m-1"
+                href="https://www.boe.es/biblioteca_juridica/codigos/codigo.php?id=178&modo=2&nota=0&tab=2">Código de la
+                Vivienda Comunidad de Madrid</a>
+              <a type="button" target="_blank" class="btn btn-success waves-effect waves-light m-1"
+                href="https://www.madrid.es/portales/munimadrid/es/Inicio/Contacto/Direcciones-y-telefonos/Registro-de-la-Propiedad/?vgnextfmt=default&vgnextoid=6b4792355c51c010VgnVCM2000000c205a0aRCRD&vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD">Registro
+                de propiedad de Madrid</a>
 
-            <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-header"></div>
-             <div class="card-body">
-               <div class="table-responsive">
-                <table class="table table-striped table-bordered notranslate">
-                  <tbody><tr>
-                    <th style="width:20%;">NUEVAS INCORPORACIONES</th>
-                    <th style="width:17%;">Madrid</th>
-                    <th style="width:16%;">Sevilla</th>
-                  </tr>
-                  <tr>
-                    <td><strong>Calidad</strong></td>
-                    <td><code class="w3-codespan"></code></td>
-                    <td><code class="w3-codespan">Ernesto Pérez</code></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Relaciones laborales</strong></td>
-                    <td>Cristina Huerta</td>
-                    <td>Marcos del Blanco, Elisa Melilla</td>  
-                  </tr>
-                  <tr>
-                    <td><strong>Comercial</strong></td>
-                    <td>Gerardo Galdós</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Portería</strong></td>
-                    <td></td>
-                    <td>Rubén Suárez</td>
-                  </tr>
-                  
-                </tbody></table>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-bordered notranslate">
+                          <tbody>
+                            <tr>
+                              <th style="width:20%;">NUEVAS INCORPORACIONES</th>
+                              <th style="width:17%;">Madrid</th>
+                              <th style="width:16%;">Sevilla</th>
+                            </tr>
+                            <tr>
+                              <td><strong>Calidad</strong></td>
+                              <td><code class="w3-codespan"></code></td>
+                              <td><code class="w3-codespan">Ernesto Pérez</code></td>
+                            </tr>
+                            <tr>
+                              <td><strong>Relaciones laborales</strong></td>
+                              <td>Cristina Huerta</td>
+                              <td>Marcos del Blanco, Elisa Melilla</td>
+                            </tr>
+                            <tr>
+                              <td><strong>Comercial</strong></td>
+                              <td>Gerardo Galdós</td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <td><strong>Portería</strong></td>
+                              <td></td>
+                              <td>Rubén Suárez</td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-             </div>
-          </div>
-        </div>
-      </div><!--End Row-->
+              </div>
+              <!--End Row-->
 
             </div>
-              
+
           </div>
         </div>
 
       </div>
       <!-- End container-fluid-->
- <div class="row">
+      <div class="row">
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header"><i class="fa fa-table"></i>Servicios Jurídicos</div>
             <div class="card-body">
               <div class="table-responsive">
-              <table id="default-datatable" class="table table-bordered">
-                <thead>
+                <table id="default-datatable" class="table table-bordered">
+                  <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Dirección</th>
-                        <th>Persona de contacto</th>
-                        <th>Teléfono</th>
-                        <th>Email</th>
+                      <th>Nombre</th>
+                      <th>Dirección</th>
+                      <th>Persona de contacto</th>
+                      <th>Teléfono</th>
+                      <th>Email</th>
                     </tr>
-                </thead>
-                <tbody>
+                  </thead>
+                  <tbody>
                     <tr>
-                        <td>García de la Santa</td>
-                        <td>Príncipe de Vergara nº 262, Madrid</td>
-                        <td>Joaquín Hernández</td>
-                        <td>911432971</td>
-                        <td>contacto@garciadealsantaabogados.es</td>
+                      <td>García de la Santa</td>
+                      <td>Príncipe de Vergara nº 262, Madrid</td>
+                      <td>Joaquín Hernández</td>
+                      <td>911432971</td>
+                      <td>contacto@garciadealsantaabogados.es</td>
                     </tr>
                     <tr>
-                        <td>Vilches Abogados</td>
-                        <td>Vilches Abogados
-Calle del Poeta Joan Maragall, 56, Madrid</td>
-                        <td>Teresa Rivera</td>
-                        <td>915759082</td>
-                        <td>despacho@hernandez-vilches.com</td>
-                    </tr>  
-                </tbody>
-                <tfoot>
+                      <td>Vilches Abogados</td>
+                      <td>Vilches Abogados
+                        Calle del Poeta Joan Maragall, 56, Madrid</td>
+                      <td>Teresa Rivera</td>
+                      <td>915759082</td>
+                      <td>despacho@hernandez-vilches.com</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
                     <tr>
 
-                </tfoot>
-            </table>
-            </div>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
         </div>

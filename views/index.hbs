@@ -3,138 +3,161 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Swift - Admin</title>
-  <!--favicon-->
-  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
-  <!-- simplebar CSS-->
-  <link href="/stylesheets/template/simplebar.css" rel="stylesheet" />
-  <!-- Bootstrap core CSS-->
-  <link href="/stylesheets/template/bootstrap.min.css" rel="stylesheet" />
-  <!-- animate CSS-->
-  <link href="/stylesheets/template/animate.css" rel="stylesheet" type="text/css" />
-  <!-- Icons CSS-->
-  <link href="/stylesheets/template/icons.css" rel="stylesheet" type="text/css" />
-  <!-- Sidebar CSS-->
-  <link href="/stylesheets/template/sidebar-menu.css" rel="stylesheet" />
-  <!-- Custom Style-->
-  <link href="/stylesheets/template/app-style.css" rel="stylesheet" />
-  <!-- Style-->
-  <link href="/stylesheets/style.css" rel="stylesheet" />
+
+  <title>Swift Admin</title>
+
+  <!-- Font Awesome Icons -->
+  <link href="/stylesheets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
+    rel="stylesheet" type="text/css" />
+
+  <!-- Plugin CSS -->
+  <link href="/stylesheets/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" />
+
+  <!-- Theme CSS - Includes Bootstrap -->
+  <link href="/stylesheets/css/creative.min.css" rel="stylesheet" />
 </head>
 
-<body>
-
-  <!-- Start wrapper-->
-  <div id="wrapper">
-
-    <!--Start sidebar-wrapper-->
-    {{> menu}}
-    <!--End sidebar-wrapper-->
-
-    <!--Start topbar header-->
-    <header class="topbar-nav">
-      <nav class="navbar navbar-expand fixed-top bg-white">
-        <ul class="navbar-nav mr-auto align-items-center">
+<body id="page-top">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger logo-text" href="#page-top">Swift</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto my-2 my-lg-0">
           <li class="nav-item">
-            <a class="nav-link toggle-menu" href="javascript:void();">
-              <i class="icon-menu menu-icon"></i>
-            </a>
+            <a class="nav-link js-scroll-trigger" href="#about">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#services">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contacto</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/login" target="_blank">Login</a>
           </li>
         </ul>
+      </div>
+    </div>
+  </nav>
 
-        <ul class="navbar-nav align-items-center right-nav-link">
-          <li class="nav-item">
-            {{user.name}}
-          </li>
-          <li class="nav-item">
-            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
-              <span class="user-profile">
-                {{#if user.imgPath}}
-                  <img src="{{user.imgPath}}" class="img-circle" alt="user avatar">
-                {{else}}
-                  <img src="./images/user.jpg" class="img-circle" alt="user avatar">
-                {{/if}}
-              </span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-right">
-              <li class="dropdown-item user-details">
-                <a href="javaScript:void();">
-                  <div class="media">
-                    <div class="avatar"><img class="align-self-start mr-3" src="./images/user.jpg" alt="user avatar">
-                    </div>
-                    <div class="media-body">
-                      <h6 class="mt-2 user-title">{{user.name}}</h6>
-                      <p class="user-subtitle">{{user.email}}</p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="dropdown-divider"></li>
-              <li class="dropdown-item"><i class="icon-envelope mr-2"></i> Inbox</li>
-              <li class="dropdown-divider"></li>
-              <li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li>
-              <li class="dropdown-divider"></li>
-              <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
-              <li class="dropdown-divider"></li>
-              <li class="dropdown-item"><a href="/logout"><i class="icon-power mr-2"></i> Logout</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <!--End topbar header-->
+  <!-- Masthead -->
+  <header class="masthead" id="about">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center justify-content-center text-center">
+        <div class="col-lg-10 align-self-end">
+          <h1 class="text-uppercase text-white font-weight-bold">
+            Toda la información de tu edificio en un solo lugar
+          </h1>
+          <hr class="divider my-4" />
+        </div>
+        <div class="col-lg-8 align-self-baseline">
+          <p class="text-white-75 font-weight-light mb-5">
+            Con los servicios de Swift vas a poder gestionar todo lo
+            que tenga que ver con servicios, reclamos, gestiones, envios
+            de paquetes y mucho más cuando quieras.
+          </p>
+          <a class="btn btn-info btn-xl js-scroll-trigger" href="#services">Descubre</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <div class="clearfix"></div>
 
-    <div class="content-wrapper">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-12">
-            <div style="min-height:600px">
-              <!--Please remove the height before using this page-->
-
-            </div>
+  <!-- Services Section -->
+  <section class="page-section" id="services">
+    <div class="container">
+      <h2 class="text-center mt-0">A tu service</h2>
+      <hr class="divider my-4" />
+      <div class="row">
+        <div class="col-lg-4 col-md-4 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-laptop-code text-info mb-4"></i>
+            <h3 class="h4 mb-2">Actualizado</h3>
+            <p class="text-muted mb-0">
+              Mirá toda la información de tus edificios en tiempo real.
+            </p>
           </div>
         </div>
-
-      </div>
-      <!-- End container-fluid-->
-
-      <div class="overlay"></div>
-
-    </div>
-    <!--End content-wrapper-->
-    <!--Start Back To Top Button-->
-    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-    <!--End Back To Top Button-->
-
-    <!--Start footer-->
-    <footer class="footer">
-      <div class="container">
-        <div class="text-center">
-          Copyright © 2018 Rukada Admin
+        <div class="col-lg-4 col-md-4 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-globe text-info mb-4"></i>
+            <h3 class="h4 mb-2">Siempre online</h3>
+            <p class="text-muted mb-0">
+              Accesible desde todo tipo de dispositivos sin importar donde te encuentres.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-heart text-info mb-4"></i>
+            <h3 class="h4 mb-2">Hecho con amor</h3>
+            <p class="text-muted mb-0">
+              Hacemos todo para que puedas tener todo a tu servicio.
+            </p>
+          </div>
         </div>
       </div>
-    </footer>
-    <!--End footer-->
+    </div>
+  </section>
 
-  </div>
-  <!--End wrapper-->
+  <!-- Contact Section -->
+  <section class="page-section" id="contact">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="mt-0">Consultanos</h2>
+          <hr class="divider my-4" />
+          <p class="text-muted mb-5">
+            Cualquier duda o sugerencia no dudes en hacernos saber!
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
+          <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
+          <div>(914) 758-014</div>
+        </div>
+        <div class="col-lg-4 mr-auto text-center">
+          <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
+          <!-- Make sure to change the email address in anchor text AND the link below! -->
+          <a class="d-block" href="#">info@swiftadmin.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Footer -->
+  <footer class="bg-light py-5">
+    <div class="container">
+      <div class="small text-center text-muted">
+        Copyright &copy; 2020 - Cristina Suarez & César Val Leiva
+      </div>
+    </div>
+  </footer>
 
-  <script src="/javascripts/template/jquery.min.js"></script>
-  <script src="/javascripts/template/popper.min.js"></script>
-  <script src="/javascripts/template/bootstrap.min.js"></script>
-  <script src="/javascripts/template/simplebar/js/simplebar.js"></script>
-  <script src="/javascripts/template/waves.js"></script>
-  <script src="/javascripts/template/sidebar-menu.js"></script>
-  <script src="/javascripts/template/app-script.js"></script>
-  <script src="/javascripts/script.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="/stylesheets/vendor/jquery/jquery.min.js"></script>
+  <script src="/stylesheets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Plugin JavaScript -->
+  <script src="/stylesheets/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/stylesheets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="/javascripts/js/creative.min.js"></script>
 </body>
 
 </html>

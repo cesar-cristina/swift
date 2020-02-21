@@ -108,12 +108,12 @@ router.get("/home", (req, res, next) => {
   }
 
   if (user.role === "admin") {
-    res.render("index", { user });
+    res.render("home/admin/boss", { user });
   }
 });
 
 router.get("/", (req, res, next) => {
-  res.render("auth/login");
+  res.render("index");
 });
 
 router.get("/login", (req, res, next) => {
@@ -140,11 +140,13 @@ router.get("/auth", (req, res, next) => {
 });
 
 router.get("/empleados", (req, res, next) => {
-  User.find({ role: "admin" })
-    .then(user => {
-      res.render("empleados/empleados", { user });
-    })
-    .catch(err => console.log("error", err));
+
+
+    User.find({ role: "admin" })
+      .then(user => {
+        res.render("empleados/empleados", {user});
+      })
+      .catch(err => console.log("error", err));
 });
 
 router.get("/empleado/:id", (req, res, next) => {
@@ -172,9 +174,10 @@ router.get("/empleado/delete/:id", (req, res) => {
 });
 
 router.get("/proveedores", (req, res, next) => {
+  user = req.user;
   Supplier.find()
     .then(supplier => {
-      res.render("proveedores/proveedores", { supplier });
+      res.render("proveedores/proveedores", { supplier: supplier, user: user });
     })
     .catch(err => console.log("error", err));
 });
@@ -230,10 +233,11 @@ router.get("/proveedor/delete/:id", (req, res, next) => {
 });
 
 router.get("/edificios", (req, res, next) => {
+  user = req.user;
   Building.find()
     .then(building => {
       // res.json(data);
-      res.render("edificios/edificios", { building });
+      res.render("edificios/edificios", { building: building, user: user });
     })
     .catch(err => console.log("error", err));
 });
@@ -520,6 +524,7 @@ router.get("/building/:id", (req, res, next) => {
 });
 
 router.get("/vencimientos", (req, res, next) => {
+  user = req.user;
   Vencimiento.find()
     .populate("building")
     .populate("supplier")
@@ -540,7 +545,8 @@ router.get("/vencimientos", (req, res, next) => {
             res.render("edificios/vencimientos", {
               vencimientos: vencimientos,
               buildings: buildings,
-              supplier: supplier
+              supplier: supplier,
+              user: user
             });
           });
         });
@@ -629,6 +635,11 @@ router.post("/add/place/:id", (req, res, next) => {
    
     res.redirect("/home");
   });
+});
+
+router.get("/informes", (req, res, next) => {
+  
+    res.render("informes/informes")
 });
 
 module.exports = router;
