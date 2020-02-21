@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Swift - Admin</title>
+  <!--favicon-->
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <!-- simplebar CSS-->
+  <link href="/stylesheets/template/simplebar.css" rel="stylesheet" />
+  <!-- Bootstrap core CSS-->
+  <link href="/stylesheets/template/bootstrap.min.css" rel="stylesheet" />
+  <!-- animate CSS-->
+  <link href="/stylesheets/template/animate.css" rel="stylesheet" type="text/css" />
+  <!-- Icons CSS-->
+  <link href="/stylesheets/template/icons.css" rel="stylesheet" type="text/css" />
+  <!-- Sidebar CSS-->
+  <link href="/stylesheets/template/sidebar-menu.css" rel="stylesheet" />
+  <!-- Custom Style-->
+  <link href="/stylesheets/template/app-style.css" rel="stylesheet" />
+  <!-- Style-->
+  <link href="/stylesheets/style.css" rel="stylesheet" />
+</head>
+
+<body>
+
+  <!-- Start wrapper-->
+  <div id="wrapper">
+
+    <!--Start sidebar-wrapper-->
+    {{> menuEmployee}}
+    <!--End sidebar-wrapper-->
+
+    <!--Start topbar header-->
+    <header class="topbar-nav">
+      <nav class="navbar navbar-expand fixed-top bg-white">
+        <ul class="navbar-nav mr-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link toggle-menu" href="javascript:void();">
+              <i class="icon-menu menu-icon"></i>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav align-items-center right-nav-link">
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+              <span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle"
+                  alt="user avatar"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li class="dropdown-item user-details">
+                <a href="javaScript:void();">
+                  <div class="media">
+                    <div class="avatar"><img class="align-self-start mr-3" src="https://via.placeholder.com/110x110"
+                        alt="user avatar"></div>
+                    <div class="media-body">
+                      <h6 class="mt-2 user-title">Katrina Mccoy</h6>
+                      <p class="user-subtitle">mccoy@example.com</p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-envelope mr-2"></i> Inbox</li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-power mr-2"></i>      
+              <a href="/logout">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!--End topbar header-->
+
+    <div class="clearfix"></div>
+
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div style="min-height:150px">
+              <div class="btn-group m-1" role="group">
+                  <button type="button" class="btn btn-info waves-effect waves-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Contacto oficina
+                  </button>
+                  <div class="dropdown-menu">
+                    <a href="javaScript:void();" class="dropdown-item">Fran Naranjo: 911457862</a>
+                    <a href="javaScript:void();" class="dropdown-item">Enrique Montaño: 901478569</a>
+                </div>
+                 <div class="btn-group m-1" role="group">
+                  <button type="button" class="btn btn-danger waves-effect waves-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Seguridad y Emergencias
+                  </button>
+                  <div class="dropdown-menu">
+                    <a href="javaScript:void();" class="dropdown-item">Policía: 913221221</a>
+                    <a href="javaScript:void();" class="dropdown-item">Bomberos:915881265</a>
+                    <a href="javaScript:void();" class="dropdown-item">Emergencias: 112</a>
+                </div>
+              <!--Please remove the height before using this page-->
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-12 col-lg-6">
+          <div class="card border border-warning">
+            <div class="card-body">
+          <div class="media align-items-center">
+             <div><i class="fa fa-calendar fa-5x text-warning"></i></div>
+            <div class="media-body text-left ml-3">
+              <h5 class="text-warning">Principales tareas de empleado de portería</h5>
+              <p>
+                1. Vigilancia: El control de acceso es una de sus principales funciones. El conserje debe vigilar quien entra y quien sale del edificio, y además ayudar a todos aquellos que no encuentren el piso u oficina que están buscando.<br>
+
+2. Limpiar: Entre sus labores se encuentran la de limpieza de algunas zonas comunes del edificio como los ascensores, las escaleras, pasillos, etc.<br>
+
+3. Apertura y cierre de los portales y accesos. <br>
+
+4. Correspondencia: Dentro de las Comunidades de Propietarios, el conserje se encarga de repartir la correspondencia entre los inquilinos, evitando así la publicidad molesta y añadiendo un plus de comodidad.<br>
+
+5. Energía: Es el encargado de encender, apagar o programar las luces y la calefacción, según esté fijado en la comunidad o en la empresa.<br>
+
+6. Si se produce alguna avería en el edificio o comunidad, es el encargado de avisar al servicio técnico para que vengan a revisar la incidencia.<br>
+
+7. Tareas de mantenimiento de jardines: En el caso de que esté reflejado en los estatutos, el conserje asumirá este rol.<br>
+
+8. Contenedores: Se deben establecer unos turnos de sacar los contenedores de basura a la calle y su posterior recogida, evitando así que lo hagan los propios propietarios.<br>
+
+9. Es el responsable de las llaves de los espacios que pertenecen a las zonas comunes.<br>
+
+10. En algunas ocasiones, el conserje deberá realizar un parte diario de tareas con todas aquellas que haya realizado durante el día.<br>
+              </p>
+            </div>
+            </div>
+           </div>
+         </div>
+        </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header"><i class="fa fa-table"></i>Paquetes próxima entrega</div>
+            <div class="card-body">
+              <div class="table-responsive">
+              <table id="default-datatable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Piso</th>
+                        <th>Dueño</th>
+                        <th>Categoría</th>
+                        <th>Fecha estimada de entrega</th>
+                        <th>Horario de entrega</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1ºB</td>
+                        <td>Amancio Ortega</td>
+                        <td>frágil</td>
+                        <td>4-03-2020</td>
+                        <td>Laborable mañanas</td>
+
+                    </tr>
+                    <tr>
+                        <td>4ºA</td>
+                        <td>Cristiano Ronaldo</td>
+                        <td>pesado</td>
+                        <td>28-02-2020</td>
+                        <td>Fin de semana</td>
+
+                    </tr>  
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                </tfoot>
+            </table>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- End Row-->
+
+      <!-- End container-fluid-->
+
+      <div class="overlay"></div>
+
+    </div>
+    <!--End content-wrapper-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+
+    {{!-- <!--Start footer-->
+    <footer class="footer">
+      <div class="container">
+        <div class="text-center">
+          Copyright © 2018 Rukada Admin
+        </div>
+      </div>
+    </footer> --}}
+    <!--End footer-->
+
+  </div>
+  <!--End wrapper-->
+
+
+  <script src="/javascripts/template/jquery.min.js"></script>
+  <script src="/javascripts/template/popper.min.js"></script>
+  <script src="/javascripts/template/bootstrap.min.js"></script>
+  <script src="/javascripts/template/simplebar/js/simplebar.js"></script>
+  <script src="/javascripts/template/waves.js"></script>
+  <script src="/javascripts/template/sidebar-menu.js"></script>
+  <script src="/javascripts/template/app-script.js"></script>
+  <script src="/javascripts/script.js"></script>
+
+</body>
+
+</html>

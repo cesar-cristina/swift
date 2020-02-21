@@ -103,9 +103,11 @@
             </ol>
           </div>
           <div class="col-sm-3">
+            {{#is req.user.type ‘boss’}}
             <div class="btn-group float-sm-right">
               <button class="btn btn-success float-right">+ Agregar proveedor</button>
             </div>
+            {{/is}}
           </div>
         </div>
         <!-- End Breadcrumb-->

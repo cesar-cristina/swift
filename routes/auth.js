@@ -82,31 +82,29 @@ router.post("/singup", (req, res, next) => {
   const plainPassword1 = req.body.password;
   const salt = bcrypt.genSaltSync(bcryptSalt);
   const hashPass = bcrypt.hashSync(password, salt);
-  if (
-    ["boss", "expenses", "maintenance", "employee", "owner", "tenant"].indexOf(
-      req.body.type
-    ) === -1
-  ) {
-    res.render("auth/singup", { message: "specified role was not valid" });
+
+  if (["boss", "expenses", "maintenance","employee","owner","tenant"].indexOf(req.body.type) === -1) {
+    res.render("auth/singup", { message: "specified role was not valid"});
     return;
   }
+
+
   User.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
       res.render("auth/singup", { message: "The username already exists" });
       return;
-    } else {
-      Users.create({
-        name: req.body.username,
-        password: hash,
-        type: req.body.type
-      })
-        .then(userCreated => {
+    }
+    else {
+      Users.create({ name: req.body.username, password: hash, type: req.body.type })
+        .then((userCreated) => {
           res.json({ created: true, userCreated });
         })
         .catch(() => {
-          res.render("auth/singup", { created: false });
+          res.render("auth/singup",{ created: false });
         });
     }
+
+
     // const newUser = new User({
     //   username,
     //   password: hashPass
@@ -124,72 +122,84 @@ router.get("/login", (req, res, next) => {
   res.render("auth/login");
 });
 
-router.post("/login", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  if (username === "" || password === "") {
-    res.render("auth/login", {
-      message: "Please enter both, username and password to sign up."
-    });
-    return;
-  }
-  User.findOne({ username })
-    .then(user => {
-      console.log(user);
-      if (!user) {
-        res.render("auth/login", {
-          message: "The username doesn't exist."
-        });
-        return;
-      }
-      if (bcrypt.compareSync(password, user.password)) {
-        // Save the login in the session!
-        req.session.currentUser = user;
-        res.redirect("/home");
-      } else {
-        res.render("auth/login", {
-          message: "Incorrect password"
-        });
-      }
-    })
-    .catch(error => {
-      next(error);
-    });
-});
-function checkTypes(type) {
-  return function(req, res, next) {
-    if (req.isAuthenticated() && req.user.type === type) {
-      return next();
-    } else {
-      res.redirect("/login");
-    }
-  };
-}
+
+// router.post("/login", passport.authenticate("local", {
+//   successReturnToOrRedirect: "/",
+//   failureRedirect: "/login",
+//   failureFlash: true,
+//   passReqToCallback: true
+// }));
+
+//   const username = req.body.username;
+//   const password = req.body.password;
+
+//   if (username === "" || password === "") {
+//     res.render("auth/login", {
+//       message: "Please enter both, username and password to sign up."
+//     });
+//     return;
+//   }
+
+//   User.findOne({ username })
+//   .then(user => {
+//     console.log(user)
+//       if (!user) {
+//         res.render("auth/login", {
+//           message: "The username doesn't exist."
+//         });
+//         return;
+//       }
+//       if (bcrypt.compareSync(password, user.password)) {
+//         // Save the login in the session!
+//         req.session.currentUser = user;
+//         res.redirect("/home");
+//       } else {
+//         res.render("auth/login", {
+//           message: "Incorrect password"
+//         });
+//       }
+//   })
+//   .catch(error => {
+//     next(error);
+//   })
+
+
+
+
+
 router.get("/home", (req, res) => {
   if (req.session.currentUser) {
-    User.findById(req.session.currentUser).then(allUserData => {
+    User.findById(req.session.currentUser).then((allUserData) => {
       allUserData.type = `${allUserData.type.toLowerCase()}`;
+
       let viewData = {
         user: allUserData
       };
+
       if (allUserData.type === "boss") {
         viewData.isBoss = true;
       }
+
       if (allUserData.type === "expenses") {
         viewData.isExpenses = true;
       }
+
       if (allUserData.type === "maintenance") {
         viewData.isMaintenance = true;
       }
+
       if (allUserData.type === "employee") {
         viewData.isEmployee = true;
       }
+
       if (allUserData.type === "owner") {
         viewData.isOwner = true;
       }
+
       if (allUserData.type === "tenant") {
         viewData.isTenant = true;
       }
+
       res.render("home", viewData);
     });
   } else {
@@ -206,7 +216,11 @@ router.get("/logout", (req, res, next) => {
 router.get("/remember", (req, res) => {
   res.render("remember");
 });
+
 router.post("/remember-password", (req, res) => {
   console.log(`find in mongo the user with email ${req.body.email}`);
 });
+
+
+
 module.exports = router;

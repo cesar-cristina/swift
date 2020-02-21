@@ -149,8 +149,10 @@
                               <th>Address</th>
                               <th>Year</th>
                               <th>Floors</th>
+                              {{#is req.user.type ‘boss’}}
                               <th style="width: 10%; text-align:center">Edit</th>
                               <th style="width: 10%; text-align:center">Delete</th>
+                              {{/is}}
                             </tr>
                           </thead>
                           <tbody>
@@ -159,8 +161,10 @@
                               <td>{{this.name}}</td>
                               <td>{{this.year}}</td>
                               <td>{{this.floors.lenght}}</td>
+                              {{#is req.user.type ‘boss’}}
                               <td><button class="btn btn-warning btn-sm">Edit</button></td>
                               <td><a class="btn btn-danger btn-sm" href="/piso/delete/{{this._id}}">Delete</a></td>
+                              {{/is}}
                             </tr>
                             {{/each}}
                           </tbody>

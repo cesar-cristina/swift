@@ -1274,7 +1274,7 @@ dbConnect(() => {
     },
     {
       username: "frankymolina",
-      password: "portero",
+      password: bcrypt.hashSync("portero", bcrypt.genSaltSync(saltRounds)),
       name: faker.name.findName(),
       role: "employee",
       type: "portero",

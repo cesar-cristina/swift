@@ -1,0 +1,85 @@
+body {
+  padding: 25px;
+}
+
+.logo {
+
+  width: 30px;
+  height: 40px;
+
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: rgb(0, 204, 255)
+}
+
+#navOne {
+
+}
+
+#navTwo { 
+  margin: 8px
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.wraper {
+  background: rgb(0, 204, 255);
+  display: flex ;
+  flex-direction: row;
+}
+.wraper1 {
+  color: white;
+  font-size: 40px;
+  width: 70%vw;
+}
+
+.wraper2 {
+  width: 30%;
+}
+
+#mobile {
+  width: 40%vw;
+  height: 60%vw;
+  
+}
+
+.wraper3 {
+  width: 60%;
+  margin-right: 300px;
+}
+
+.fluid {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.foot {
+  margin-top: 50px;
+  width: 100%vw;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.footer {
+  width: 100%vw;
+  height: 150px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
