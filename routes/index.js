@@ -37,6 +37,30 @@ function checkRole(role) {
 }
 
 
+router.get("/home/boss", (req, res, next) => {
+      res.render("home/admin/boss" );
+});
+
+router.get("/home/admin1", (req, res, next) => {
+  res.render("home/admin/expenses" );
+});
+
+router.get("/home/admin2", (req, res, next) => {
+  res.render("home/admin/maintenance" );
+});
+
+router.get("/home/empleado", (req, res, next) => {
+  res.render("home/portero" );
+});
+
+router.get("/swift-admin", (req, res, next) => {
+  res.render("landing-page" );
+});
+
+
+
+
+
 
 /* GET home page */
 router.get("/", (req, res, next) => {
@@ -139,6 +163,16 @@ router.get("/proveedor/delete/:id", (req, res, next) => {
 // router.get("/informes", (req, res, next) => {
 
 // })
+
+router.get("/informes", (req, res, next) => {
+  Building.find()
+    .then(() => {
+      // res.json(data);
+      res.render("/informes", { informs });
+    })
+    .catch(err => console.log("error", err));
+});
+
 
 
 router.get("/edificios", (req, res, next) => {
