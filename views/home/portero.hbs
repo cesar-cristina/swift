@@ -32,7 +32,7 @@
   <div id="wrapper">
 
     <!--Start sidebar-wrapper-->
-    {{> menu}}
+    {{> menuEmployee}}
     <!--End sidebar-wrapper-->
 
     <!--Start topbar header-->
@@ -87,7 +87,24 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <div style="min-height:600px">
+            <div style="min-height:150px">
+              <div class="btn-group m-1" role="group">
+                  <button type="button" class="btn btn-info waves-effect waves-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Contacto oficina
+                  </button>
+                  <div class="dropdown-menu">
+                    <a href="javaScript:void();" class="dropdown-item">Fran Naranjo: 911457862</a>
+                    <a href="javaScript:void();" class="dropdown-item">Enrique Montaño: 901478569</a>
+                </div>
+                 <div class="btn-group m-1" role="group">
+                  <button type="button" class="btn btn-danger waves-effect waves-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Seguridad y Emergencias
+                  </button>
+                  <div class="dropdown-menu">
+                    <a href="javaScript:void();" class="dropdown-item">Policía: 913221221</a>
+                    <a href="javaScript:void();" class="dropdown-item">Bomberos:915881265</a>
+                    <a href="javaScript:void();" class="dropdown-item">Emergencias: 112</a>
+                </div>
               <!--Please remove the height before using this page-->
 
             </div>
@@ -95,6 +112,87 @@
         </div>
 
       </div>
+
+      <div class="col-12 col-lg-6">
+          <div class="card border border-warning">
+            <div class="card-body">
+          <div class="media align-items-center">
+             <div><i class="fa fa-calendar fa-5x text-warning"></i></div>
+            <div class="media-body text-left ml-3">
+              <h5 class="text-warning">Principales tareas de empleado de portería</h5>
+              <p>
+                1. Vigilancia: El control de acceso es una de sus principales funciones. El conserje debe vigilar quien entra y quien sale del edificio, y además ayudar a todos aquellos que no encuentren el piso u oficina que están buscando.<br>
+
+2. Limpiar: Entre sus labores se encuentran la de limpieza de algunas zonas comunes del edificio como los ascensores, las escaleras, pasillos, etc.<br>
+
+3. Apertura y cierre de los portales y accesos. <br>
+
+4. Correspondencia: Dentro de las Comunidades de Propietarios, el conserje se encarga de repartir la correspondencia entre los inquilinos, evitando así la publicidad molesta y añadiendo un plus de comodidad.<br>
+
+5. Energía: Es el encargado de encender, apagar o programar las luces y la calefacción, según esté fijado en la comunidad o en la empresa.<br>
+
+6. Si se produce alguna avería en el edificio o comunidad, es el encargado de avisar al servicio técnico para que vengan a revisar la incidencia.<br>
+
+7. Tareas de mantenimiento de jardines: En el caso de que esté reflejado en los estatutos, el conserje asumirá este rol.<br>
+
+8. Contenedores: Se deben establecer unos turnos de sacar los contenedores de basura a la calle y su posterior recogida, evitando así que lo hagan los propios propietarios.<br>
+
+9. Es el responsable de las llaves de los espacios que pertenecen a las zonas comunes.<br>
+
+10. En algunas ocasiones, el conserje deberá realizar un parte diario de tareas con todas aquellas que haya realizado durante el día.<br>
+              </p>
+            </div>
+            </div>
+           </div>
+         </div>
+        </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header"><i class="fa fa-table"></i>Paquetes próxima entrega</div>
+            <div class="card-body">
+              <div class="table-responsive">
+              <table id="default-datatable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Piso</th>
+                        <th>Dueño</th>
+                        <th>Categoría</th>
+                        <th>Fecha estimada de entrega</th>
+                        <th>Horario de entrega</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1ºB</td>
+                        <td>Amancio Ortega</td>
+                        <td>frágil</td>
+                        <td>4-03-2020</td>
+                        <td>Laborable mañanas</td>
+
+                    </tr>
+                    <tr>
+                        <td>4ºA</td>
+                        <td>Cristiano Ronaldo</td>
+                        <td>pesado</td>
+                        <td>28-02-2020</td>
+                        <td>Fin de semana</td>
+
+                    </tr>  
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                </tfoot>
+            </table>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- End Row-->
+
       <!-- End container-fluid-->
 
       <div class="overlay"></div>
@@ -105,14 +203,14 @@
     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
     <!--End Back To Top Button-->
 
-    <!--Start footer-->
+    {{!-- <!--Start footer-->
     <footer class="footer">
       <div class="container">
         <div class="text-center">
           Copyright © 2018 Rukada Admin
         </div>
       </div>
-    </footer>
+    </footer> --}}
     <!--End footer-->
 
   </div>
